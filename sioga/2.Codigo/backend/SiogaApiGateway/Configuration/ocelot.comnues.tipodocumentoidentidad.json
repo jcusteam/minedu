@@ -1,0 +1,23 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "ServiceName": "comunesTipoDocumentoIdentidades",
+      "UpstreamPathTemplate": "/comunes/tipodocumentoidentidad/api/v1/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ],
+      "DelegatingHandlers": [
+        "ComunesHandler"
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "ApiSecurity",
+        "AllowedScopes": []
+      },
+      "SwaggerKey": "comunesTipoDocumentoIdentidades"
+    }
+  ]
+}

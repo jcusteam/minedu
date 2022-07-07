@@ -1,0 +1,181 @@
+<div fxLayout="column" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100" class="flex-p">
+    <mat-card>
+      <mat-card-content>
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Filtros
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <form [formGroup]="form" class="form" (ngSubmit)="onSearch(form.value)" autocomplete="off">
+              <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+                <div fxFlex>
+                  <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+                    <div fxFlex>
+                      <mat-form-field appearance="fill">
+                        <mat-label>Número Pecosa</mat-label>
+                        <input matInput formControlName="numeroPecosa" maxlength="12" placeholder="">
+                        <mat-error *ngIf="form.controls.numeroPecosa.errors?.pattern">Ingrese correctamente el número de pecosa</mat-error>
+                        <mat-error *ngIf="form.controls.numeroPecosa.errors?.maxlength">El número de pecosa no debe ser mayor a 12 caracteres.</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div fxFlex>
+                      <mat-form-field appearance="fill">
+                        <mat-label>Año Pecosa</mat-label>
+                        <input matInput formControlName="anioPecosa" maxlength="4" placeholder="">
+                        <mat-error *ngIf="form.controls.anioPecosa.errors?.pattern">Ingrese correctamente el año de pecosa</mat-error>
+                        <mat-error *ngIf="form.controls.anioPecosa.errors?.maxlength">El año de pecosa no debe ser mayor a 4 caracteres.</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div fxFlex>
+                  <mat-form-field appearance="fill" class="form">
+                    <mat-label>Estados</mat-label>
+                    <mat-select formControlName="estado">
+                      <mat-option *ngFor="let item of estados" [value]="item.numero">
+                        {{item.nombre}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <div fxFlex style="text-align: center;">
+                  <div class="button-row">
+                    <button color="accent" mat-raised-button>Buscar</button>
+                    <button type="button" (click)="onClean()" mat-raised-button>Limpiar</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <br>
+        <div fxLayout="row" fxLayoutAlign="end center">
+          <div fxFlex style="text-align: right;">
+            <div class="button-row">
+              <button type="button" color="primary" (click)="openDialogNew()" *ngIf="onAccion(accionEnum.AGREGAR) && filter.unidadEjecutoraId == unidadEjecturaEnum.UE_024" mat-raised-button
+                type="button">Nuevo</button>
+            </div>
+          </div>
+        </div>
+        <div style="padding-bottom: 10px;"></div>
+        <mat-divider></mat-divider>
+        <div style="padding-top: 10px;"></div>
+        <div>
+          <mat-progress-bar mode="indeterminate" *ngIf="dataSource.isLoadingResults"></mat-progress-bar>
+          <div class="table-container">
+            <table mat-table [dataSource]="dataSource" matSort matSortDisableClear>
+
+              <!-- Numero Column -->
+              <ng-container matColumnDef="index" sticky>
+                <th mat-header-cell *matHeaderCellDef> Nro. </th>
+                <td mat-cell *matCellDef="let row;"> {{ row?.index}}
+                </td>
+              </ng-container>
+
+              <!-- Fecha Column -->
+              <ng-container matColumnDef="fechaRegistro">
+                <th mat-header-cell *matHeaderCellDef> Fecha Registro </th>
+                <td mat-cell *matCellDef="let row">
+                  {{row?.fechaRegistro | date:'dd-MM-yyyy h:mm:ss a'}}
+                </td>
+              </ng-container>
+
+              <!-- Estado Column -->
+              <ng-container matColumnDef="estado">
+                <th mat-header-cell *matHeaderCellDef> Estado</th>
+                <td mat-cell *matCellDef="let row">
+                  {{row?.estadoNombre}}
+                </td>
+              </ng-container>
+
+              <!-- Tipo Recibo Column -->
+              <ng-container matColumnDef="tipoBien">
+                <th mat-header-cell *matHeaderCellDef> Tipo bien </th>
+                <td mat-cell *matCellDef="let row"> {{row?.tipoBien}} </td>
+              </ng-container>
+
+              <!-- Fuente Financiamiento Column -->
+              <ng-container matColumnDef="numeroPecosa">
+                <th mat-header-cell *matHeaderCellDef> Número Pecosa </th>
+                <td mat-cell *matCellDef="let row"> {{row?.numeroPecosa}} </td>
+              </ng-container>
+
+              <!-- Numero Documento Column -->
+              <ng-container matColumnDef="nombreAlmacen">
+                <th mat-header-cell *matHeaderCellDef> Nombre Almacen </th>
+                <td mat-cell *matCellDef="let row"> {{row?.nombreAlmacen}} </td>
+              </ng-container>
+
+              <!-- Nombre Cliente Column -->
+              <ng-container matColumnDef="motivoPedido">
+                <th mat-header-cell *matHeaderCellDef> Motivo Pedido
+                </th>
+                <td mat-cell *matCellDef="let row"> {{row?.motivoPedido}} </td>
+              </ng-container>
+
+              <!-- Tipo Captacion Column -->
+              <ng-container matColumnDef="anio">
+                <th mat-header-cell *matHeaderCellDef> Año Pecosa</th>
+                <td mat-cell *matCellDef="let row"> {{ row?.anioPecosa}} </td>
+              </ng-container>
+
+              <!-- Número Cuenta Corriente Column -->
+              <ng-container matColumnDef="fechaPecosa">
+                <th mat-header-cell *matHeaderCellDef> Fecha Pecosa</th>
+                <td mat-cell *matCellDef="let row">{{row?.fechaPecosa | date:'dd-MM-yyyy'}}
+                </td>
+              </ng-container>
+
+              <!-- Actions Column -->
+              <ng-container matColumnDef="actions" stickyEnd>
+                <th mat-header-cell *matHeaderCellDef>
+                  Acciones
+                </th>
+                <td mat-cell *matCellDef="let row; let i = index">
+                  <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="openDialogInfo(row)">
+                      <mat-icon aria-label="">touch_app</mat-icon>
+                      <span>Ver Información</span>
+                    </button>
+
+                    <button mat-menu-item (click)="onProcess(row)" *ngIf="onAccion(accionEnum.APROBAR) && row?.estado == estadoIngresoPecosaEnum.EMITIDO">
+                      <mat-icon aria-label="">hourglass_empty</mat-icon>
+                      <span>Procesar</span>
+                    </button>
+
+                    <button mat-menu-item (click)="onDelete(row)" *ngIf="onAccion(accionEnum.ELIMINAR) && row?.estado == estadoIngresoPecosaEnum.EMITIDO">
+                      <mat-icon aria-label="">delete</mat-icon>
+                      <span>Eliminar</span>
+                    </button>
+
+                  </mat-menu>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+              </tr>
+            </table>
+            <div class="no-results" *ngIf="!dataSource.isLoadingResults"
+              [style.display]="dataSource.totalItems === 0 ? '' : 'none'">
+              No se encontraron registros
+            </div>
+            <mat-paginator [length]="dataSource.totalItems" [pageSize]="10" [pageSizeOptions]="[5,10,50]" showFirstLastButtons>
+            </mat-paginator>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

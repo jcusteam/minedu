@@ -1,0 +1,21 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "ServiceName": "recaudacionFileServer",
+      "UpstreamPathTemplate": "/recaudacion/fileserver/api/v1/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post"
+      ],
+      "DelegatingHandlers": [
+        "FileServerHandler"
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "ApiSecurity",
+        "AllowedScopes": []
+      },
+      "SwaggerKey": "recaudacionFileServer"
+    }
+  ]
+}

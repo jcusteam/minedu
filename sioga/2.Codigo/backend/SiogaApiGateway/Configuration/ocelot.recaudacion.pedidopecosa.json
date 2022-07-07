@@ -1,0 +1,23 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "ServiceName": "recaudacionPedidoPecosa",
+      "UpstreamPathTemplate": "/recaudacion/pedidopecosa/api/v1/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ],
+      "DelegatingHandlers": [
+        "RecaudacionHandler"
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "ApiSecurity",
+        "AllowedScopes": []
+      },
+      "SwaggerKey": "recaudacionPedidoPecosa"
+    }
+  ]
+}

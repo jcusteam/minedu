@@ -1,0 +1,126 @@
+<h2 mat-dialog-title>Información de Ingreso Pecosa</h2>
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-dialog-content class="mat-typography" perfectScrollbar>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+          <div fxFlex>
+            <mat-form-field appearance="fill">
+              <mat-label>Año de Pecosa</mat-label>
+              <input matInput formControlName="anioPecosa" maxlength="4" readonly>
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field appearance="fill">
+              <mat-label>Número de Pecosa</mat-label>
+              <input matInput formControlName="numeroPecosa" maxlength="12" readonly>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div fxFlex>
+        <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px">
+          <div fxFlex>
+            <mat-form-field appearance="fill">
+              <mat-label>Tipo de bien</mat-label>
+              <input matInput formControlName="tipoBien" readonly>
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field appearance="fill">
+              <mat-label>Fecha de pecosa</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="fechaPecosa" readonly />
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre almacén</mat-label>
+          <input matInput formControlName="nombreAlmacen" readonly>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Justificación</mat-label>
+          <input matInput formControlName="motivoPedido" readonly>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+    <h3 style="padding-top: 10px;">Detalles</h3>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <!-- Nro Column -->
+      <ng-container matColumnDef="nro">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let row; let i = index"> {{ i + 1 }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="codigoItem">
+        <th mat-header-cell *matHeaderCellDef> Código </th>
+        <td mat-cell *matCellDef="let row">{{row?.codigoItem}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nombreItem">
+        <th mat-header-cell *matHeaderCellDef style="width: 250px;"> Descripción </th>
+        <td mat-cell *matCellDef="let row" style="width: 250px;">{{row?.nombreItem}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nombreMarca">
+        <th mat-header-cell *matHeaderCellDef> Nombre Marca </th>
+        <td mat-cell *matCellDef="let row">{{row?.nombreMarca}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cantidad">
+        <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+        <td mat-cell *matCellDef="let row"> {{row?.cantidad}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="precioUnitario">
+        <th mat-header-cell *matHeaderCellDef> Precio </th>
+        <td mat-cell *matCellDef="let row"> {{ row?.precioUnitario | number: '.2-2' }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="valorTotal">
+        <th mat-header-cell *matHeaderCellDef> Valor Total </th>
+        <td mat-cell *matCellDef="let row">{{row?.valorTotal | number: '.2-2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="serieFormato">
+        <th mat-header-cell *matHeaderCellDef> Serie </th>
+        <td mat-cell *matCellDef="let row">
+          {{row?.serieFormato}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="serieDel">
+        <th mat-header-cell *matHeaderCellDef> Del </th>
+        <td mat-cell *matCellDef="let row">
+          {{row?.serieDel}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="serieAl">
+        <th mat-header-cell *matHeaderCellDef> Al </th>
+        <td mat-cell *matCellDef="let row">
+          {{row?.serieAl}}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <br>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button mat-dialog-close>Cerrar</button>
+  </mat-dialog-actions>
+</form>

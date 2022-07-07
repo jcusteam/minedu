@@ -1,0 +1,6 @@
+{
+  "HOST_API": "http://localhost:8080",
+  "HOST_API_RENIEC":"http://localhost:8080",
+  "TOKEN": "production token",
+  "VERSION": "1.00"
+}

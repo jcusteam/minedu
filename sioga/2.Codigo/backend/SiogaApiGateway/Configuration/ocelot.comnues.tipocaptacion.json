@@ -1,0 +1,23 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "ServiceName": "comunesTipoCaptaciones",
+      "UpstreamPathTemplate": "/comunes/tipocaptacion/api/v1/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ],
+      "DelegatingHandlers": [
+        "ComunesHandler"
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "ApiSecurity",
+        "AllowedScopes": []
+      },
+      "SwaggerKey": "comunesTipoCaptaciones"
+    }
+  ]
+}

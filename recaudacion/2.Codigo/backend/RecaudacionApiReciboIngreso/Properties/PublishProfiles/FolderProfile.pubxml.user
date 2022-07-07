@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <History>True|2022-05-05T12:13:33.5577163Z;True|2022-04-26T12:18:00.4072643-05:00;True|2022-04-25T17:31:13.1609631-05:00;True|2022-04-25T17:20:34.6006738-05:00;True|2022-04-25T08:09:08.2920557-05:00;True|2022-04-08T05:58:52.9612979-05:00;True|2022-04-05T07:06:20.7698445-05:00;True|2022-03-23T21:36:08.4257941-05:00;True|2022-03-23T20:44:27.6062954-05:00;True|2022-03-23T20:01:38.0702770-05:00;True|2022-03-23T17:41:28.9145757-05:00;True|2022-03-23T04:11:39.8163764-05:00;True|2022-03-23T03:53:25.3558511-05:00;True|2022-03-21T11:51:42.6573126-05:00;True|2022-03-20T11:03:17.6244499-05:00;True|2022-03-20T10:57:16.9087858-05:00;True|2022-03-19T18:31:50.6835703-05:00;True|2022-03-19T18:28:55.1055340-05:00;True|2022-03-19T18:28:30.1646650-05:00;True|2022-03-19T17:48:11.9029774-05:00;False|2022-03-18T23:04:22.3923178-05:00;</History>
+    <_PublishTargetUrl>D:\Repository\si00371-sioga-recaudacion\2.Codigo\Backend\RecaudacionApiReciboIngreso\bin\Release\netcoreapp3.1\publish\</_PublishTargetUrl>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,61 @@
+<h2 mat-dialog-title>
+  Información Unidad Ejecutora
+</h2>
+<form [formGroup]="unidadEjecutoraForm" (ngSubmit)="onSubmit()" #psForm="ngForm">
+  <div mat-dialog-content perfectScrollbar>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Secuencia</mat-label>
+          <input matInput formControlName="secuencia" readonly />
+         
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Código</mat-label>
+          <input matInput formControlName="codigo" readonly />
+          
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="nombre" readonly />
+          
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Número RUC</mat-label>
+          <input matInput formControlName="numeroRuc" readonly />
+          
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Correo electrónico</mat-label>
+          <input matInput formControlName="correo" readonly />
+          
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Dirección</mat-label>
+          <input matInput formControlName="direccion" readonly />
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button mat-dialog-close>Cerrar</button>
+  </mat-dialog-actions>
+</form>

@@ -1,0 +1,18 @@
+.table-response {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+
+  table th,
+  td {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mat-table-sticky:first-child {
+    border-right: 1px solid #e0e0e0;
+  }
+
+  .mat-table-sticky:last-child {
+    border-left: 1px solid #e0e0e0;
+  }
+}

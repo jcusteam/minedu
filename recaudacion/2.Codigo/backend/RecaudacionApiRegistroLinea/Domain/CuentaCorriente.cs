@@ -1,0 +1,10 @@
+namespace RecaudacionApiRegistroLinea.Domain
+{
+    public class CuentaCorriente
+    {
+        public int CuentaCorrienteId { get; set; }
+        public string Codigo { get; set; }
+        public string Numero { get; set; }
+        public string Denominacion { get; set; }
+    }
+}

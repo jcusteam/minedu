@@ -1,0 +1,96 @@
+<h2 mat-dialog-title>
+  Información de Clasificador de Ingresos
+</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" #psForm="ngForm">
+  <div mat-dialog-content perfectScrollbar>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Cuenta contable debe</mat-label>
+          <mat-select formControlName="cuentaContableIdDebe">
+            <mat-option *ngFor="let item of cuentasContables" [value]="item.cuentaContableId"
+            [disabled]="item.cuentaContableId != data.cuentaContableIdDebe">
+              {{ item.descripcion }}
+            </mat-option>
+          </mat-select>
+
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Cuenta contable haber</mat-label>
+          <mat-select formControlName="cuentaContableIdHaber">
+            <mat-option *ngFor="let item of cuentasContables" [value]="item.cuentaContableId"
+            [disabled]="item.cuentaContableId != data.cuentaContableIdHaber">
+              {{ item.descripcion }}
+            </mat-option>
+          </mat-select>
+
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex="20">
+        <mat-form-field appearance="fill">
+          <mat-label>Código</mat-label>
+          <input matInput formControlName="codigo" readonly />
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="descripcion"readonly />
+        
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Tipo Transacción</mat-label>
+          <input matInput formControlName="tipoTransaccion" readonly />
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Genérica</mat-label>
+          <input matInput formControlName="generica" readonly />
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Sub Genérica</mat-label>
+          <input matInput formControlName="subGenerica" readonly />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Sub Genérica Detalle</mat-label>
+          <input matInput formControlName="subGenericaDetalle" readonly />
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Especifica</mat-label>
+          <input matInput formControlName="especifica" readonly />
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Específica detalle</mat-label>
+          <input matInput formControlName="especificaDetalle" readonly />
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button mat-dialog-close>Cerrar</button>
+  </mat-dialog-actions>
+</form>

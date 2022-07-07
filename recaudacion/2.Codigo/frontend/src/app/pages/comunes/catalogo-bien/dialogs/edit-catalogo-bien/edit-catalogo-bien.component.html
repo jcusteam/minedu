@@ -1,0 +1,106 @@
+<h2 mat-dialog-title>
+  Editar Catálogo de Bienes
+</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" #psForm="ngForm" autocomplete="off">
+  <div mat-dialog-content perfectScrollbar>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Clasificador Ingresos <span class="text-required">*</span></mat-label>
+          <mat-select formControlName="clasificadorIngresoId">
+            <mat-option *ngFor="let item of clasigficadorIngresos" [value]="item.clasificadorIngresoId">
+              {{item.codigo}} {{ item.descripcion }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.controls.clasificadorIngresoId.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Unidad Medida <span class="text-required">*</span></mat-label>
+          <mat-select formControlName="unidadMedidaId">
+            <mat-option *ngFor="let item of unidadesMedidas" [value]="item.unidadMedidaId">
+              {{ item.nombre }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.controls.unidadMedidaId.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Código <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="codigo" maxlength="13" />
+          <mat-error *ngIf="form.controls.codigo.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.codigo.errors?.pattern">
+            Ingrese correctamente el Código
+          </mat-error>
+          <mat-error *ngIf="form.controls.codigo.errors?.maxlength">El código no debe ser mayor a 13 caracteres.</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Descripción <span class="text-required">*</span></mat-label>
+          <textarea matInput formControlName="descripcion" maxlength="200"></textarea>
+          <mat-error *ngIf="form.controls.descripcion.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.descripcion.errors?.pattern">
+            Ingrese correctamente la Descripción
+          </mat-error>
+          <mat-error *ngIf="form.controls.descripcion.errors?.maxlength">La Descripción no debe ser mayor a 200 caracteres.</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Stock Mínimo <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="stockMinimo" maxlength="12" />
+          <mat-error *ngIf="form.controls.stockMinimo.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.stockMinimo.errors?.pattern">
+            Ingrese correctamente el stock mínimo
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Punto Reorden <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="puntoReorden" maxlength="12" />
+          <mat-error *ngIf="form.controls.puntoReorden.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.puntoReorden.errors?.pattern">
+            Ingrese correctamente el punto reorden
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Stock Máximo <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="stockMaximo" maxlength="12" />
+          <mat-error *ngIf="form.controls.stockMaximo.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.stockMaximo.errors?.pattern">
+            Ingrese correctamente el stock máximo
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+    </div>
+  </div>
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button (click)="onCloseDialog()">Cerrar</button>
+    <button type="submit" mat-raised-button [disabled]="!form.valid" color="primary">Actualizar</button>
+  </mat-dialog-actions>
+</form>

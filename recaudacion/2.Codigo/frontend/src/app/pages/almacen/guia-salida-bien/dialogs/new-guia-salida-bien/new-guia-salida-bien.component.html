@@ -1,0 +1,124 @@
+<h2 mat-dialog-title>Guia de Salida de Bienes</h2>
+<form class="form" [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit(form.value)">
+  <mat-dialog-content class="mat-typography" perfectScrollbar>
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Justificación <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="justificacion" maxlength="250" placeholder="">
+          <mat-error *ngIf="form.controls.justificacion.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.justificacion.errors?.pattern">
+            Ingrese correctamente la justificación
+          </mat-error>
+          <mat-error *ngIf="form.controls.justificacion.errors?.maxlength">
+            La justificación no debe ser mayor a 250 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+    <h3 style="padding-top: 10px;">Detalles</h3>
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px">
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Catálogo de Bienes</mat-label>
+          <mat-select #select1 placeholder="Catálogo de Bienes" formControlName="catalogoBien"
+            (selectionChange)="seletedChangeCatalogo($event.value)">
+            <mat-select-filter *ngIf="select1.focused" [displayMember]="'codigoDescripcion'"
+              [noResultsMessage]="'No se encontraron registros'" [placeholder]="'Buscar'" [array]="catalogoBienes"
+              (filteredReturn)="filteredCatalogoBienes =$event">
+            </mat-select-filter>
+            <mat-option *ngFor="let item of filteredCatalogoBienes" [value]="item">
+              {{item.codigoDescripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutAlign="end center">
+      <div fxFlex="10">
+        <button type="button" mat-raised-button (click)="addRowData()">
+          Agregar
+        </button>
+      </div>
+    </div>
+    <br>
+    <mat-divider></mat-divider>
+    <h3 style="padding-top: 10px;">Detalles</h3>
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource">
+        <!-- Nro Column -->
+        <ng-container matColumnDef="nro">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let element; let i = index"> {{ i + 1 }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="codigoItem">
+          <th mat-header-cell *matHeaderCellDef> Código </th>
+          <td mat-cell *matCellDef="let element">{{element.catalogoBien?.codigo}}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="nombreItem">
+          <th mat-header-cell *matHeaderCellDef style="width: 500px;"> Descripción </th>
+          <td mat-cell *matCellDef="let element" style="width: 500px;">{{element.catalogoBien?.descripcion}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="anioPecosa">
+          <th mat-header-cell *matHeaderCellDef> Año Pecosa </th>
+          <td mat-cell *matCellDef="let element"> {{element?.anioPecosa}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="numeroPecosa">
+          <th mat-header-cell *matHeaderCellDef> Número Pecosa </th>
+          <td mat-cell *matCellDef="let element"> {{element?.numeroPecosa}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="cantidad">
+          <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+          <td mat-cell *matCellDef="let element"> {{element?.cantidad}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="serieFormato">
+          <th mat-header-cell *matHeaderCellDef> Serie </th>
+          <td mat-cell *matCellDef="let element">
+            {{element?.serieFormato}}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="serieDel">
+          <th mat-header-cell *matHeaderCellDef> Del </th>
+          <td mat-cell *matCellDef="let element">
+            {{element?.serieDel}}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="serieAl">
+          <th mat-header-cell *matHeaderCellDef> Al </th>
+          <td mat-cell *matCellDef="let element">
+            {{element?.serieAl}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button type="button" (click)="deleteRowData(element)" aria-label="">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+    
+
+    <br>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" mat-dialog-close>Cerrar</button>
+    <button type="submit" mat-raised-button [disabled]="!form.valid" color="primary">Guardar</button>
+  </mat-dialog-actions>
+</form>

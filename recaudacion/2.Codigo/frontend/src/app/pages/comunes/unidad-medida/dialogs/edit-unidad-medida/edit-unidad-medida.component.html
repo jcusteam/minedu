@@ -1,0 +1,41 @@
+<h2 mat-dialog-title>
+  Editar Unidad de Medida
+</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" #psForm="ngForm" autocomplete="off">
+  <div mat-dialog-content perfectScrollbar>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex="30">
+        <mat-form-field appearance="fill">
+          <mat-label>Abrebiatura <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="abreviatura" maxlength="6" />
+          <mat-error *ngIf="form.controls.abreviatura.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.abreviatura.errors?.pattern">
+            Ingrese correctamente la abreviatura
+          </mat-error>
+          <mat-error *ngIf="form.controls.abreviatura.errors?.maxlength">
+            La abreviatura no debe ser mayor a 6 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="nombre" maxlength="50" />
+          <mat-error *ngIf="form.controls.nombre.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.nombre.errors?.pattern">
+            Ingrese correctamente el nombre
+          </mat-error>
+          <mat-error *ngIf="form.controls.abreviatura.errors?.maxlength">
+            El nombre no debe ser mayor a 50 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button (click)="onCloseDialog()">Cerrar</button>
+    <button type="submit" mat-raised-button [disabled]="!form.valid" color="primary">Actualizar</button>
+  </mat-dialog-actions>
+</form>

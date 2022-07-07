@@ -1,0 +1,20 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "ServiceName": "siogaAuthorization",
+      "UpstreamPathTemplate": "/passport/api/v1/{everything}",
+      "UpstreamHttpMethod": [
+        "Post"
+      ],
+      "DelegatingHandlers": [
+        "AuthHandler"
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "ApiSecurity",
+        "AllowedScopes": []
+      },
+      "SwaggerKey": "siogaAuthorization"
+    }
+  ]
+}

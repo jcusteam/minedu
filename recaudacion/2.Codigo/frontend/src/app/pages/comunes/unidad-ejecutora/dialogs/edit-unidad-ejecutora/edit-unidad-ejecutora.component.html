@@ -1,0 +1,101 @@
+<h2 mat-dialog-title>
+  Editar unidad ejecutora
+</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" #psForm="ngForm" autocomplete="off">
+  <div mat-dialog-content perfectScrollbar>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex="30">
+        <mat-form-field appearance="fill">
+          <mat-label>Número RUC <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="numeroRuc" maxlength="11" (keyup)="onKeyUpRuc($event)" />
+          <button mat-button type="button" matSuffix mat-icon-button aria-label="Search" (click)="searchRuc()">
+            <mat-icon>search</mat-icon>
+          </button>
+          <mat-error *ngIf="form.controls.numeroRuc.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.numeroRuc.errors?.pattern">
+            Ingrese correctamente el número RUC
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="nombre" maxlength="100" readonly />
+          <mat-error *ngIf="form.controls.nombre.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.nombre.errors?.pattern">
+            Ingrese correctamente el nombre
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Secuencia <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="secuencia" onlyNumber maxlength="10" />
+          <mat-error *ngIf="form.controls.secuencia.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.secuencia.errors?.pattern">
+            Ingrese correctamente la secuencia
+          </mat-error>
+          <mat-error *ngIf="form.controls.codigo.errors?.maxlength">
+            La Secuencia no debe ser mayor a 10 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Código <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="codigo" onlyNumber maxlength="10" />
+          <mat-error *ngIf="form.controls.codigo.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.codigo.errors?.pattern">
+            Ingrese correctamente el código
+          </mat-error>
+          <mat-error *ngIf="form.controls.codigo.errors?.maxlength">
+            El código no debe ser mayor a 10 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Correo electrónico <span class="text-required">*</span> </mat-label>
+          <input matInput formControlName="correo" maxlength="100" />
+          <mat-error *ngIf="form.controls.correo.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.correo.errors?.email">
+            Ingrese un correo válido
+          </mat-error>
+          <mat-error *ngIf="form.controls.codigo.errors?.maxlength">
+            El correo electrónico no debe ser mayor a 100 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Dirección <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="direccion" maxlength="300" />
+          <mat-error *ngIf="form.controls.direccion.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.direccion.errors?.pattern">
+            Ingrese correctamente la dirección
+          </mat-error>
+          <mat-error *ngIf="form.controls.codigo.errors?.maxlength">
+            La dirección no debe ser mayor a 300 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+  </div>
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button (click)="onCloseDialog()">Cerrar</button>
+    <button type="submit" mat-raised-button [disabled]="!form.valid" color="primary">Actualizar</button>
+  </mat-dialog-actions>
+</form>

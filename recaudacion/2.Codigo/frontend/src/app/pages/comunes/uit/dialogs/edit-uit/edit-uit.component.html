@@ -1,0 +1,77 @@
+<h2 mat-dialog-title>
+  Editar UIT
+</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" #psForm="ngForm" autocomplete="off">
+  <div mat-dialog-content perfectScrollbar>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Periodo <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="periodo" maxlength="4" />
+          <mat-error *ngIf="form.controls.periodo.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.periodo.errors?.pattern">
+            Ingrese correctamente el periodo
+          </mat-error>
+          <mat-error *ngIf="form.controls.periodo.errors?.maxlength">
+            El periodo no debe ser mayor a 4 caracteres
+          </mat-error>
+          <mat-error *ngIf="form.controls.periodo.errors?.min">
+            El periodo no debe ser menor a {{periodoMin}}
+          </mat-error>
+          <mat-error *ngIf="form.controls.periodo.errors?.max">
+            El periodo no debe ser mayor a {{periodoMax}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Valor <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="valor" maxlength="12" />
+          <mat-error *ngIf="form.controls.valor.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.valor.errors?.pattern">
+            Ingrese correctamente el valor
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Unidad Monetaria <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="unidadMonetaria" maxlength="12" />
+          <mat-error *ngIf="form.controls.unidadMonetaria.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.unidadMonetaria.errors?.pattern">
+            Ingrese correctamente la unidad monetaria
+          </mat-error>
+          <mat-error *ngIf="form.controls.unidadMonetaria.errors?.maxlength">
+            La unidad monetaria no debe ser mayor a 12 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Base Legal <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="baseLegal" maxlength="100" />
+          <mat-error *ngIf="form.controls.baseLegal.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.baseLegal.errors?.pattern">
+            Ingrese correctamente la base Legal
+          </mat-error>
+          <mat-error *ngIf="form.controls.baseLegal.errors?.maxlength">
+            La base Legal no debe ser mayor a 100 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button (click)="onCloseDialog()">cerrar</button>
+    <button type="submit" mat-raised-button [disabled]="!form.valid" color="primary">Actualizar</button>
+  </mat-dialog-actions>
+</form>

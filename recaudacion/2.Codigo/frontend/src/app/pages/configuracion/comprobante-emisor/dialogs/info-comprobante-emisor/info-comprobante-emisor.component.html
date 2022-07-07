@@ -1,0 +1,195 @@
+<h2 mat-dialog-title>
+  Información de Comprobante Emisor
+</h2>
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()" #psForm="ngForm">
+  <div mat-dialog-content perfectScrollbar>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex="20">
+        <mat-form-field appearance="fill">
+          <mat-label>Número RUC</mat-label>
+          <input matInput formControlName="numeroRuc" readonly />
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Razón Social</mat-label>
+          <input matInput formControlName="razonSocial" readonly />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex="20">
+        <mat-form-field appearance="fill">
+          <mat-label>Tipo Documento</mat-label>
+          <input matInput formControlName="tipoDocumento" readonly />
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre Comercial</mat-label>
+          <input matInput formControlName="nombreComercial" readonly />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre de Firmante</mat-label>
+          <input matInput formControlName="firmante" readonly />
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Número Resolución</mat-label>
+          <input matInput formControlName="numeroResolucion" readonly />
+        </mat-form-field>
+      </div>
+    </div>
+  
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Código pais</mat-label>
+          <input matInput formControlName="codigoPais" readonly />
+
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Ubigeo</mat-label>
+          <input matInput formControlName="ubigeo" readonly />
+
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Departamento</mat-label>
+          <input matInput formControlName="departamento" readonly />
+
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Provincia</mat-label>
+          <input matInput formControlName="provincia" readonly />
+
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Distrito</mat-label>
+          <input matInput formControlName="distrito" readonly />
+
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Dirección</mat-label>
+          <input matInput formControlName="direccion" readonly />
+
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Dirección Alternativa</mat-label>
+          <input matInput formControlName="direccionAlternativa" readonly />
+
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Urbanización</mat-label>
+          <input matInput formControlName="urbanizacion" readonly />
+
+        </mat-form-field>
+      </div>
+      <div fxFlex="20">
+        <mat-form-field appearance="fill">
+          <mat-label>Teléfono</mat-label>
+          <input matInput formControlName="telefono" readonly />
+
+        </mat-form-field>
+      </div>
+
+
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Usuario de OSE</mat-label>
+          <input matInput formControlName="usuarioOSE" readonly />
+
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Clave de OSE</mat-label>
+          <input matInput formControlName="claveOSE" readonly />
+
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Correo Envio</mat-label>
+          <input matInput formControlName="correoEnvio" readonly />
+
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Contraseña de Correo</mat-label>
+          <input matInput formControlName="correoClave" readonly />
+
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Server Mail</mat-label>
+          <input matInput formControlName="serverMail" readonly />
+
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Server Port</mat-label>
+          <input matInput formControlName="serverPort" readonly />
+
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre de archivo Certificado </mat-label>
+          <input matInput formControlName="nombreArchivoCer" readonly />
+
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre de archivo Key del certificado</mat-label>
+          <input matInput formControlName="nombreArchivoKey" readonly />
+        </mat-form-field>
+      </div>
+    </div>
+
+  </div>
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button mat-dialog-close>Cerrar</button>
+  </mat-dialog-actions>
+</form>

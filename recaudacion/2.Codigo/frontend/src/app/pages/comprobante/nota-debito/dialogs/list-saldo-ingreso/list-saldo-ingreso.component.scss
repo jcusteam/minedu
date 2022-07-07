@@ -1,0 +1,38 @@
+table {
+    width: 100%;
+    font-size: 12px !important;
+}
+
+table .mat-header-cell {
+    color: #000000 !important;
+}
+
+.mat-cell,
+.mat-footer-cell {
+    font-size: 12px !important;
+}
+
+tr.mat-footer-row {
+    font-weight: bold;
+}
+
+
+td.mat-cell,
+td.mat-footer-cell,
+th.mat-header-cell {
+    padding: 5px;
+}
+
+
+.mat-form-field {
+    width: 100%;
+}
+
+.mat-form-field-appearance-fill.mat-form-field-disabled {
+    color: black;
+    font-weight: 500;
+}
+
+mat-label {
+    color: rgba(0, 0, 0, 1) !important;
+}

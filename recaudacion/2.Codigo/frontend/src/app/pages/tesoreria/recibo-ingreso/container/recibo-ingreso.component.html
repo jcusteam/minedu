@@ -1,0 +1,362 @@
+<div fxLayout="column" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100" class="flex-p">
+    <mat-card>
+      <mat-card-content>
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Filtros de busqueda
+              </mat-panel-title>
+              <mat-panel-description>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div>
+              <form [formGroup]="form" class="form" (ngSubmit)="onSearch(form.value)" autocomplete="off">
+                <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+                  <div fxFlex>
+                    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+                      <div fxFlex>
+                        <mat-form-field appearance="fill" class="form">
+                          <mat-label>Tipo Documento Identidad</mat-label>
+                          <mat-select formControlName="tipoDocumentoIdentidadId"
+                            (selectionChange)="onSelectionTipoDocIdentidad($event.value)">
+                            <mat-option *ngFor="let item of tipoDocumentoClientes"
+                              [value]="item.tipoDocumentoIdentidadId">
+                              {{item.nombre}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div fxFlex>
+                        <mat-form-field appearance="fill">
+                          <mat-label>Número Documento</mat-label>
+                          <input matInput formControlName="numeroDocumento" maxlength="12">
+                          <button mat-button type="button" matSuffix mat-icon-button aria-label="Search"
+                            (click)="searchNroDoc()">
+                            <mat-icon>search</mat-icon>
+                          </button>
+                          <mat-error *ngIf="form.controls.numeroDocumento.errors?.pattern">
+                            Ingrese correctamente el número de documento
+                          </mat-error>
+                          <mat-error *ngIf="form.controls.numeroDocumento.errors?.maxlength">
+                            El número documento no debe ser mayor a 12 caracteres
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div fxFlex>
+                    <mat-form-field appearance="fill">
+                      <mat-label> Nombre Cliente</mat-label>
+                      <input matInput formControlName="clienteNombre" maxlength="100" readonly>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+                  <div fxFlex>
+                    <mat-form-field appearance="fill" class="form">
+                      <mat-label>Tipo Recibo Ingreso</mat-label>
+                      <mat-select formControlName="tipoReciboIngresoId">
+                        <mat-option *ngFor="let item of tipoReciboIngresos" [value]="item.tipoReciboIngresoId">
+                          {{item.nombre}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+                  <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+                    <div fxFlex appearance="fill">
+                      <mat-form-field appearance="fill" class="form">
+                        <mat-label>Tipo Captación</mat-label>
+                        <mat-select formControlName="tipoCaptacionId">
+                          <mat-option *ngFor="let item of tipoCaptaciones" [value]="item.tipoCaptacionId">
+                            {{item.nombre}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div fxFlex>
+                      <mat-form-field appearance="fill" class="form">
+                        <mat-label>Estados</mat-label>
+                        <mat-select formControlName="estado">
+                          <mat-option *ngFor="let item of estados" [value]="item.numero">
+                            {{item.nombre}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                  <div fxFlex style="text-align: center;">
+                    <div class="button-row">
+                      <button color="accent" mat-raised-button>Buscar</button>
+                      <button type="button" (click)="onClean()" mat-raised-button>Limpiar</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <br>
+        <div fxLayout="row" fxLayoutAlign="end center">
+          <div fxFlex style="text-align: right;">
+            <div class="button-row">
+              <button type="button" *ngIf="onAccion(accionEnum.AGREGAR)" color="primary" (click)="openDialogNew()" mat-raised-button
+                type="button">Nuevo</button>
+            </div>
+          </div>
+        </div>
+        <div style="padding-bottom: 10px;"></div>
+        <mat-divider></mat-divider>
+        <div style="padding-top: 10px;"></div>
+        <div>
+          <mat-progress-bar mode="indeterminate" *ngIf="dataSource.isLoadingResults"></mat-progress-bar>
+          <div class="table-container">
+            <div class="table-response">
+              <table mat-table [dataSource]="dataSource" matSort matSortDisableClear>
+
+                <!-- Id Column -->
+                <ng-container matColumnDef="index" sticky>
+                  <th mat-header-cell *matHeaderCellDef> Nro</th>
+                  <td mat-cell *matCellDef="let row;"> {{ row?.index}}</td>
+                </ng-container>
+
+                <!-- Numero Column -->
+                <ng-container matColumnDef="numero">
+                  <th mat-header-cell *matHeaderCellDef> Número </th>
+                  <td mat-cell *matCellDef="let row;"> {{ row?.numero}} </td>
+                </ng-container>
+
+                <!-- Fecha Column -->
+                <ng-container matColumnDef="fechaEmision">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+                  <td mat-cell *matCellDef="let row"> {{row?.fechaEmision | date:'dd-MM-yyyy'}}
+                  </td>
+                </ng-container>
+
+                <!-- Estado Column -->
+                <ng-container matColumnDef="estado">
+                  <th mat-header-cell *matHeaderCellDef> Estado</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row?.estadoNombre}}
+                  </td>
+                </ng-container>
+
+                <!-- Tipo Documento Cliente Column -->
+                <ng-container matColumnDef="tipoDocumentoCliente">
+                  <th mat-header-cell *matHeaderCellDef> Tipo Doc. Identidad </th>
+                  <td mat-cell *matCellDef="let row"> {{row?.cliente?.tipoDocumentoNombre}} </td>
+                </ng-container>
+
+                <!-- Numero Documento Column -->
+                <ng-container matColumnDef="nroDocumento">
+                  <th mat-header-cell *matHeaderCellDef> Número documento </th>
+                  <td mat-cell *matCellDef="let row"> {{row?.cliente?.numeroDocumento}} </td>
+                </ng-container>
+
+                <!-- Nombre Cliente Column -->
+                <ng-container matColumnDef="nombre">
+                  <th mat-header-cell *matHeaderCellDef> Nombre y Apellidos / Razón Social
+                  </th>
+                  <td mat-cell *matCellDef="let row"> {{row?.cliente?.nombre}} </td>
+                </ng-container>
+
+                <!-- Tipo Recibo Column -->
+                <ng-container matColumnDef="tipoRecibo">
+                  <th mat-header-cell *matHeaderCellDef> Tipo Recibo Ingreso </th>
+                  <td mat-cell *matCellDef="let row"> {{row?.tipoReciboIngreso?.nombre}} </td>
+                </ng-container>
+
+                <!-- Fuente Financiamiento Column -->
+                <ng-container matColumnDef="fuenteFinanciamiento">
+                  <th mat-header-cell *matHeaderCellDef> F.F </th>
+                  <td mat-cell *matCellDef="let row"> {{row.fuenteFinanciamientoId}} </td>
+                </ng-container>
+
+                <!-- Tipo Captacion Column -->
+                <ng-container matColumnDef="tipoCaptacion">
+                  <th mat-header-cell *matHeaderCellDef> Tipo Captación</th>
+                  <td mat-cell *matCellDef="let row"> {{row?.tipoCaptacion?.nombre}} </td>
+                </ng-container>
+
+                <!-- Número Cuenta Corriente Column -->
+                <ng-container matColumnDef="nroCuentaCorriente">
+                  <th mat-header-cell *matHeaderCellDef> Cuenta Corriente</th>
+                  <td mat-cell *matCellDef="let row">{{row?.cuentaCorriente?.numero}} </td>
+                </ng-container>
+
+                <!-- Monto Deposito Column -->
+                <ng-container matColumnDef="importeTotal">
+                  <th mat-header-cell *matHeaderCellDef> Importe Total (S/.)</th>
+                  <td mat-cell *matCellDef="let row"> {{ row?.importeTotal | number: '.2-2' }} </td>
+                </ng-container>
+
+                <!-- Nro Deposito Column -->
+                <ng-container matColumnDef="nroDeposito">
+                  <th mat-header-cell *matHeaderCellDef> Número Depósito</th>
+                  <td mat-cell *matCellDef="let row"> {{row?.numeroDeposito}}</td>
+                </ng-container>
+
+                <!-- Fecha Deposito Column -->
+                <ng-container matColumnDef="fechaDeposito">
+                  <th mat-header-cell *matHeaderCellDef> Fecha Depósito</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{row?.fechaDeposito | date:'dd-MM-yyyy'}}</td>
+                </ng-container>
+
+                  <!-- ValidarDeposito Column -->
+                  <ng-container matColumnDef="validarDeposito">
+                    <th mat-header-cell *matHeaderCellDef> Validado</th>
+                    <td mat-cell *matCellDef="let row">
+                      <span *ngIf="row.validarDeposito==validaDepositoEnum.PENDIENTE"> Pendiente </span>
+                      <span *ngIf="row.validarDeposito==validaDepositoEnum.SI"> Si </span>
+                      <span *ngIf="row.validarDeposito==validaDepositoEnum.NO"> No </span>
+                    </td>
+                  </ng-container>
+
+                <!-- Nro Cheque Column -->
+                <ng-container matColumnDef="nroCheque">
+                  <th mat-header-cell *matHeaderCellDef> Número Cheque</th>
+                  <td mat-cell *matCellDef="let row"> {{row?.numeroCheque}}</td>
+                </ng-container>
+
+                <!-- Registro Linea Column -->
+                <ng-container matColumnDef="registroLinea">
+                  <th mat-header-cell *matHeaderCellDef> Reg. línea</th>
+                  <td mat-cell *matCellDef="let row"></td>
+                </ng-container>
+
+                <!-- Registro Sinad Column -->
+                <ng-container matColumnDef="registroSinad">
+                  <th mat-header-cell *matHeaderCellDef> Reg. Sinad</th>
+                  <td mat-cell *matCellDef="let row"></td>
+                </ng-container>
+
+                <!-- Concepto Column -->
+                <ng-container matColumnDef="concepto">
+                  <th mat-header-cell *matHeaderCellDef> Concepto</th>
+                  <td mat-cell *matCellDef="let row"> {{ row?.concepto}}</td>
+                </ng-container>
+
+                <!-- Nro Oficio Column -->
+                <ng-container matColumnDef="nroOficio">
+                  <th mat-header-cell *matHeaderCellDef> Nro Oficio</th>
+                  <td mat-cell *matCellDef="let row"> {{ row?.numeroOficio}}</td>
+                </ng-container>
+
+                <!-- Carta Orden  Column -->
+                <ng-container matColumnDef="cartaOrden">
+                  <th mat-header-cell *matHeaderCellDef> Carta Orden</th>
+                  <td mat-cell *matCellDef="let row"> {{ row?.cartaOrden}}</td>
+                </ng-container>
+
+
+                <!-- Comp. Pago Column -->
+                <ng-container matColumnDef="compPago">
+                  <th mat-header-cell *matHeaderCellDef> Comp. Pago</th>
+                  <td mat-cell *matCellDef="let row"> {{ row?.numeroComprobantePago}}</td>
+                </ng-container>
+
+
+                <!-- Expediente Siaf Column -->
+                <ng-container matColumnDef="expedienteSiaf">
+                  <th mat-header-cell *matHeaderCellDef> SIAF Nro.</th>
+                  <td mat-cell *matCellDef="let row"> {{ row?.expedienteSiaf}}</td>
+                </ng-container>
+
+                <!-- Nro Resolucion Column -->
+                <ng-container matColumnDef="nroResolucion">
+                  <th mat-header-cell *matHeaderCellDef> Nro Resolución</th>
+                  <td mat-cell *matCellDef="let row"> {{ row?.numeroResolucion}}</td>
+                </ng-container>
+
+                <!-- Correo Column -->
+                <ng-container matColumnDef="correo">
+                  <th mat-header-cell *matHeaderCellDef> Correo</th>
+                  <td mat-cell *matCellDef="let row"> {{ row?.cliente?.correo}}</td>
+                </ng-container>
+                <!-- Actions Column -->
+                <ng-container matColumnDef="actions" stickyEnd>
+                  <th mat-header-cell *matHeaderCellDef>
+                    Acciones
+                  </th>
+                  <td mat-cell *matCellDef="let row; let i = index">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item (click)="openDialogInfo(row)">
+                        <mat-icon aria-label="">touch_app</mat-icon>
+                        <span>Ver Información</span>
+                      </button>
+                      <button mat-menu-item (click)="openDialogEdit(row)" *ngIf="row.estado == estadoReciboIngreso.EMITIDO && onAccion(accionEnum.MODIFICAR)">
+                        <mat-icon aria-label="">edit</mat-icon>
+                        <span>Editar</span>
+                      </button>
+                      <button mat-menu-item (click)="openProcess(row)" *ngIf="row.estado == estadoReciboIngreso.EMITIDO && onAccion(accionEnum.APROBAR)">
+                        <mat-icon aria-label="">hourglass_empty</mat-icon>
+                        <span>Procesar</span>
+                      </button>
+                      <button mat-menu-item (click)="openConfirm(row)" *ngIf="row.estado == estadoReciboIngreso.PROCESADO && onAccion(accionEnum.CONFIRMAR)">
+                        <mat-icon aria-label="">check_circle</mat-icon>
+                        <span>Confirmar</span>
+                      </button>
+                      <button mat-menu-item (click)="openEnvioSiaf(row)" *ngIf="row.estado == estadoReciboIngreso.CONFIRMADO && onAccion(accionEnum.REMITIR)">
+                        <mat-icon aria-label="">forward</mat-icon>
+                        <span>Enviar a Siaf</span>
+                      </button>
+                      <button mat-menu-item (click)="openTransmitir(row)" *ngIf="row.estado == estadoReciboIngreso.ENVIO_SIAF && onAccion(accionEnum.DERIVAR)">
+                        <mat-icon aria-label="">input</mat-icon>
+                        <span>Transmitir</span>
+                      </button>
+                      <button mat-menu-item (click)="openRechazar(row)" *ngIf="row.estado == estadoReciboIngreso.TRANSMITIDO && onAccion(accionEnum.DESESTIMAR)">
+                        <mat-icon aria-label="">cancel</mat-icon>
+                        <span>Rechazar</span>
+                      </button>
+                      <button mat-menu-item (click)="openAnular(row)"
+                        *ngIf="(row.estado == estadoReciboIngreso.EMITIDO || row.estado == estadoReciboIngreso.PROCESADO) && onAccion(accionEnum.ANULAR) ">
+                        <mat-icon aria-label="">thumb_down_alt</mat-icon>
+                        <span>Anular</span>
+                      </button>
+                      <button mat-menu-item (click)="openAnularPost(row)" *ngIf="row.estado == estadoReciboIngreso.TRANSMITIDO && onAccion(accionEnum.ANULAR)">
+                        <mat-icon aria-label="">thumb_down_alt</mat-icon>
+                        <span>Anulación posterior</span>
+                      </button>
+
+                      <button mat-menu-item (click)="openDelete(row)" *ngIf="row.estado == estadoReciboIngreso.EMITIDO && onAccion(accionEnum.ELIMINAR)">
+                        <mat-icon aria-label="Edit">delete_outline</mat-icon>
+                        <span>Eliminar</span>
+                      </button>
+
+                      <button mat-menu-item (click)="openReport(row)" *ngIf="onAccion(accionEnum.IMPRIMIR)">
+                        <mat-icon aria-label="">picture_as_pdf</mat-icon>
+                        <span>Reporte</span>
+                      </button>
+
+                    </mat-menu>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                </tr>
+              </table>
+              <div class="no-results" *ngIf="!dataSource.isLoadingResults"
+                [style.display]="dataSource.totalItems === 0 ? '' : 'none'">
+                No se encontraron registros
+              </div>
+            </div>
+
+            <mat-paginator [length]="dataSource.totalItems" [pageSize]="10" [pageSizeOptions]="[5,10,20,50]" showFirstLastButtons>
+            </mat-paginator>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

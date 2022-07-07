@@ -1,0 +1,117 @@
+<div fxLayout="column" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100" class="flex-p">
+    <mat-card>
+      <mat-card-content>
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Filtros
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <form [formGroup]="form" class="form" (ngSubmit)="onSearch()" autocomplete="off">
+              <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+                <div fxFlex>
+                  <mat-form-field appearance="fill">
+                    <mat-label>Catálogo de Bienes</mat-label>
+                    <mat-select #select1 placeholder="Catálogo de Bienes" formControlName="catalogoBien"
+                      (selectionChange)="seletedChangeCatalogo($event.value)">
+                      <mat-select-filter *ngIf="select1.focused" [displayMember]="'codigoDescripcion'"
+                        [noResultsMessage]="'No se encontraron registros'" [placeholder]="'Buscar'"
+                        [array]="catalogoBienes" (filteredReturn)="filteredCatalogoBienes =$event">
+                      </mat-select-filter>
+                      <mat-option *ngFor="let item of filteredCatalogoBienes" [value]="item">
+                        {{item.codigoDescripcion}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <div fxFlex style="text-align: center;">
+                  <div class="button-row">
+                    <button color="primary" mat-raised-button>Buscar</button>
+                    <button type="button" color="accent" (click)="exportarKardex()" mat-raised-button>Exportar</button>
+                    <button type="button" (click)="onClean()" mat-raised-button>Limpiar</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <div style="padding-bottom: 10px;"></div>
+        <mat-divider></mat-divider>
+        <div style="padding-top: 10px;"></div>
+        <div class="table-container">
+          <table class="table-bordered simple text-center">
+            <thead>
+              <tr>
+                <th rowspan="2">Nro.</th>
+                <th rowspan="2">Fecha</th>
+                <th rowspan="2">Año Pecosa</th>
+                <th rowspan="2">Número Pecosa</th>
+                <th colspan="4">Entrada</th>
+                <th colspan="5">Salida</th>
+                <th rowspan="2">Saldo</th>
+              </tr>
+              <tr>
+                <th>Documento</th>
+                <th>Del</th>
+                <th>Al</th>
+                <th>Total</th>
+                <th>Documento</th>
+                <th>Número</th>
+                <th>Del</th>
+                <th>Al</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of dataSource.data;let i = index ">
+                <td>{{i + 1}}</td>
+                <td>{{item?.fecha | date:'dd-MM-yyyy h:mm:ss a'}}</td>
+                <td>{{item?.anioPecosa}}</td>
+                <td>{{item?.numeroPecosa}}</td>
+                <td>{{item?.entradaDocumento}}</td>
+                <td>{{item?.entradaDel}}</td>
+                <td>{{item?.entradaAl}}</td>
+                <td>{{item?.entradaTotal}}</td>
+                <td>{{item?.salidaDocumento}}</td>
+                <td>{{item?.salidaDocumentoNumero}}</td>
+                <td>{{item?.salidaDel}}</td>
+                <td>{{item?.salidaAl}}</td>
+                <td>{{item?.salidaTotal}}</td>
+                <td>{{item?.saldo}}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>
+                  {{getEntradaTotal()}}
+                </th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>
+                  {{getSalidaTotal()}}
+                </th>
+                <th></th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

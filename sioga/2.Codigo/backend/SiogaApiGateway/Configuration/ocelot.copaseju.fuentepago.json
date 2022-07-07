@@ -1,0 +1,21 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "ServiceName": "copasejuFuentePago",
+      "UpstreamPathTemplate": "/copaseju/fuente-pago/api/v1/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post"
+      ],
+      "DelegatingHandlers": [
+        "CopasejuHandler"
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "ApiSecurity",
+        "AllowedScopes": []
+      },
+      "SwaggerKey": "copasejuFuentePago"
+    }
+  ]
+}

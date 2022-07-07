@@ -1,0 +1,358 @@
+<h2 mat-dialog-title>
+  Registrar Comprobante Emisor
+</h2>
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" #psForm="ngForm" autocomplete="off">
+  <div mat-dialog-content perfectScrollbar>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex="20">
+        <mat-form-field appearance="fill">
+          <mat-label>Número RUC <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="numeroRuc" maxlength="11" readonly />
+          <mat-error *ngIf="form.controls.numeroRuc.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.numeroRuc.errors?.pattern">
+            Ingrese correctamente el Número RUC
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Razón Social <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="razonSocial" maxlength="200" readonly />
+          <mat-error *ngIf="form.controls.razonSocial.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.razonSocial.errors?.pattern">
+            Ingrese correctamente la Razón Social
+          </mat-error>
+          <mat-error *ngIf="form.controls.razonSocial.errors?.maxlength">
+            La razón social no debe ser mayor a 200 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex="20">
+        <mat-form-field appearance="fill">
+          <mat-label>Tipo Documento <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="tipoDocumento" maxlength="2" readonly />
+          <mat-error *ngIf="form.controls.tipoDocumento.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.tipoDocumento.errors?.pattern">
+            Ingrese correctamente tipo Documento
+          </mat-error>
+          <mat-error *ngIf="form.controls.tipoDocumento.errors?.maxlength">
+            El tipo Documento no debe ser mayor a 2 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre Comercial <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="nombreComercial" maxlength="200" readonly />
+          <mat-error *ngIf="form.controls.nombreComercial.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.nombreComercial.errors?.pattern">
+            Ingrese correctamente la Nombre Comercial
+          </mat-error>
+          <mat-error *ngIf="form.controls.nombreComercial.errors?.maxlength">
+            El nombre comercial no debe ser mayor a 200 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre de Firmante <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="firmante" maxlength="50" />
+          <mat-error *ngIf="form.controls.firmante.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.firmante.errors?.pattern">
+            Ingrese correctamente el firmante del firmante
+          </mat-error>
+          <mat-error *ngIf="form.controls.firmante.errors?.maxlength">
+            El nombre firmante no debe ser mayor a 50 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Número Resolución <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="numeroResolucion" maxlength="20" />
+          <mat-error *ngIf="form.controls.numeroResolucion.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.numeroResolucion.errors?.pattern">
+            Ingrese correctamente la número resolución 
+          </mat-error>
+          <mat-error *ngIf="form.controls.numeroResolucion.errors?.maxlength">
+            El número resolución no debe ser mayor a 20 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Código pais <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="codigoPais" maxlength="2" readonly />
+          <mat-error *ngIf="form.controls.codigoPais.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.codigoPais.errors?.pattern">
+            Ingrese correctamente el código país
+          </mat-error>
+          <mat-error *ngIf="form.controls.codigoPais.errors?.maxlength">
+            El código país no debe ser mayor a 2 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Ubigeo <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="ubigeo" maxlength="20" readonly />
+          <mat-error *ngIf="form.controls.ubigeo.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.ubigeo.errors?.pattern">
+            Ingrese correctamente el ubigeo
+          </mat-error>
+          <mat-error *ngIf="form.controls.codigoPais.errors?.maxlength">
+            El ubigeo no debe ser mayor a 20 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Departamento <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="departamento" maxlength="50" readonly />
+          <mat-error *ngIf="form.controls.departamento.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.departamento.errors?.pattern">
+            Ingrese correctamente el departamento
+          </mat-error>
+          <mat-error *ngIf="form.controls.departamento.errors?.maxlength">
+            El departamento no debe ser mayor a 50 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Provincia <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="provincia" maxlength="50" readonly />
+          <mat-error *ngIf="form.controls.provincia.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.provincia.errors?.pattern">
+            Ingrese correctamente la provincia
+          </mat-error>
+          <mat-error *ngIf="form.controls.provincia.errors?.maxlength">
+            La provincia no debe ser mayor a 50 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Distrito <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="distrito" maxlength="50" readonly />
+          <mat-error *ngIf="form.controls.distrito.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.distrito.errors?.pattern">
+            Ingrese correctamente la distrito
+          </mat-error>
+          <mat-error *ngIf="form.controls.distrito.errors?.maxlength">
+            El distrito no debe ser mayor a 50 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Dirección <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="direccion" maxlength="300" readonly />
+          <mat-error *ngIf="form.controls.direccion.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.direccion.errors?.pattern">
+            Ingrese correctamente la dirección
+          </mat-error>
+          <mat-error *ngIf="form.controls.direccion.errors?.maxlength">
+            La dirección no debe ser mayor a 300 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Dirección Alternativa</mat-label>
+          <input matInput formControlName="direccionAlternativa" maxlength="100" />
+          <mat-error *ngIf="form.controls.direccionAlternativa.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.direccionAlternativa.errors?.pattern">
+            Ingrese correctamente la dirección alternativa
+          </mat-error>
+          <mat-error *ngIf="form.controls.direccionAlternativa.errors?.maxlength">
+            La dirección alternativa no debe ser mayor a 300 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Urbanización</mat-label>
+          <input matInput formControlName="urbanizacion" maxlength="300" />
+          <mat-error *ngIf="form.controls.urbanizacion.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.urbanizacion.errors?.pattern">
+            Ingrese correctamente la urbanización
+          </mat-error>
+          <mat-error *ngIf="form.controls.urbanizacion.errors?.maxlength">
+            La urbanización no debe ser mayor a 300 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="20">
+        <mat-form-field appearance="fill">
+          <mat-label>Teléfono <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="telefono" maxlength="15" />
+          <mat-error *ngIf="form.controls.telefono.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.telefono.errors?.pattern">
+            Ingrese correctamente el número de teléfono
+          </mat-error>
+          <mat-error *ngIf="form.controls.telefono.errors?.maxlength">
+            El número de teléfono no debe ser mayor a 15 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Usuario de OSE <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="usuarioOSE" maxlength="100" />
+          <mat-error *ngIf="form.controls.usuarioOSE.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.usuarioOSE.errors?.pattern">
+            Ingrese correctamente el usuario de OSE
+          </mat-error>
+          <mat-error *ngIf="form.controls.usuarioOSE.errors?.maxlength">
+            El usuario de OSE no debe ser mayor a 100 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Clave de OSE <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="claveOSE" maxlength="100" />
+          <mat-error *ngIf="form.controls.claveOSE.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.claveOSE.errors?.pattern">
+            Ingrese correctamente la clave de OSE
+          </mat-error>
+          <mat-error *ngIf="form.controls.claveOSE.errors?.maxlength">
+            La clave de OSE no debe ser mayor a 100 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Correo Envio <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="correoEnvio" maxlength="100" />
+          <mat-error *ngIf="form.controls.correoEnvio.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.correoEnvio.errors?.email">
+            Ingrese un correo de envio válido
+          </mat-error>
+          <mat-error *ngIf="form.controls.correoEnvio.errors?.maxlength">
+            El correo envio no debe ser mayor a 100 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Contraseña de Correo <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="correoClave" maxlength="100" />
+          <mat-error *ngIf="form.controls.correoClave.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.correoClave.errors?.pattern">
+            Ingrese correctamente la contraseña de correo
+          </mat-error>
+          <mat-error *ngIf="form.controls.correoClave.errors?.maxlength">
+            La contraseña de correo no debe ser mayor a 100 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Server Mail <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="serverMail" maxlength="50" />
+          <mat-error *ngIf="form.controls.serverMail.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.serverMail.errors?.pattern">
+            Ingrese correctamente el server Mail
+          </mat-error>
+          <mat-error *ngIf="form.controls.serverMail.errors?.maxlength">
+            El server Mail no debe ser mayor a 50 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Server Port <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="serverPort" maxlength="10" />
+          <mat-error *ngIf="form.controls.serverPort.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.serverPort.errors?.pattern">
+            Ingrese correctamente el server port
+          </mat-error>
+          <mat-error *ngIf="form.controls.serverPort.errors?.maxlength">
+            El server port no debe ser mayor a 10 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre de archivo Certificado <span class="text-required">*</span> </mat-label>
+          <input matInput formControlName="nombreArchivoCer" maxlength="100" />
+          <mat-error *ngIf="form.controls.nombreArchivoCer.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.nombreArchivoCer.errors?.pattern">
+            Ingrese correctamente el nombre de archivo certificado
+          </mat-error>
+          <mat-error *ngIf="form.controls.nombreArchivoCer.errors?.maxlength">
+            El nombre de archivo certificado no debe ser mayor a 10 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre de archivo Key del certificado <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="nombreArchivoKey" maxlength="100" />
+          <mat-error *ngIf="form.controls.nombreArchivoKey.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.nombreArchivoKey.errors?.pattern">
+            Ingrese correctamente el nombre de archivo key del certificado
+          </mat-error>
+          <mat-error *ngIf="form.controls.nombreArchivoKey.errors?.maxlength">
+            El nombre de archivo key del certificado no debe ser mayor a 10 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+  </div>
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button (click)="onCloseDialog()">Cerrar</button>
+    <button type="submit" mat-raised-button color="primary" [disabled]="!form.valid">Guardar</button>
+  </mat-dialog-actions>
+</form>

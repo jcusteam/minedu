@@ -1,0 +1,202 @@
+<h2 mat-dialog-title>Información de Registro en Línea</h2>
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+  <mat-dialog-content class="mat-typography" perfectScrollbar>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill" class="form">
+          <mat-label>Tipo de Documento Identidad</mat-label>
+          <mat-select formControlName="tipoDocumentoIdentidadId">
+            <mat-option *ngFor="let item of tipoDocumentoClientes" [value]="item.tipoDocumentoIdentidadId"
+              [disabled]="data.tipoDocumentoIdentidadId !=item.tipoDocumentoIdentidadId">
+              {{item.nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Número Documento</mat-label>
+          <input matInput formControlName="numeroDocumento" maxlength="12" readonly>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label> Nombre del Cliente </mat-label>
+          <input matInput formControlName="clienteNombre" maxlength="200" readonly>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label> Correo electrónico </mat-label>
+          <input matInput formControlName="correo" maxlength="100" readonly>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill" class="form">
+          <mat-label>Tipo de Recibo de Ingreso</mat-label>
+          <mat-select formControlName="tipoReciboIngresoId">
+            <mat-option *ngFor="let item of tipoReciboIngresos" [value]="item.tipoReciboIngresoId">
+              {{item.nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex *ngIf="hiddenExpedienteESinad">
+        <mat-form-field appearance="fill">
+          <mat-label>Expediente de SINAD</mat-label>
+          <input matInput formControlName="expedienteESinad" maxlength="30" readonly>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Cuenta Corriente</mat-label>
+          <mat-select #select1 placeholder="Cuenta Corriente" formControlName="cuentaCorriente">
+            <mat-select-filter *ngIf="select1.focused" [displayMember]="'numeroDenominacion'"
+              [noResultsMessage]="'No se encontraron registros'" [placeholder]="'Buscar'" [array]="cuentasCorrientes"
+              (filteredReturn)="filteredcuentasCorrientes =$event">
+            </mat-select-filter>
+            <mat-option *ngFor="let item of filteredcuentasCorrientes" [value]="item">
+              {{item.numeroDenominacion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+          <div fxFlex>
+            <mat-form-field appearance="fill">
+              <mat-label>Número Depósito</mat-label>
+              <input matInput formControlName="numeroDeposito" maxlength="12" readonly>
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field appearance="fill">
+              <mat-label>Importe Depósito (S/.) </mat-label>
+              <input matInput formControlName="importeDeposito" readonly>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div fxFlex>
+        <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+          <div fxFlex>
+            <mat-form-field appearance="fill">
+              <mat-label>Fecha Depósito</mat-label>
+              <input matInput [matDatepicker]="picker2" formControlName="fechaDeposito" readonly>
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+              <mat-error *ngIf="form.controls.fechaDeposito.errors?.required">*Requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px">
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Número Oficio</mat-label>
+          <input matInput formControlName="numeroOficio" maxlength="25" readonly>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Número Comp. pago</mat-label>
+          <input matInput formControlName="numeroComprobantePago" maxlength="25" readonly>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px">
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Expediente SIAF</mat-label>
+          <input matInput formControlName="expedienteSiaf" maxlength="25" readonly>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Resolución</mat-label>
+          <input matInput formControlName="numeroResolucion" maxlength="25" readonly>
+        </mat-form-field>
+      </div>
+    </div>
+
+
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px">
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Observación</mat-label>
+          <input matInput formControlName="observacion" maxlength="300" readonly>
+          <mat-error *ngIf="form.controls.observacion.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.observacion.errors?.pattern">
+            Ingrese correctamente la observación
+          </mat-error>
+          <mat-error *ngIf="form.controls.observacion.errors?.maxlength">
+            La observación no debe ser mayor a 12 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+    <h3 style="padding-top: 10px;">Detalle</h3>
+    <br>
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource">
+        <!-- Nro Column -->
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef> Nro. </th>
+          <td mat-cell *matCellDef="let element; let i = index"> {{ i + 1 }} </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="clasificadorIngreso">
+          <th mat-header-cell *matHeaderCellDef> Clasificador de Ingreso </th>
+          <td mat-cell *matCellDef="let element">
+            {{element?.clasificadorIngreso?.descripcion}}
+          </td>
+          <td mat-footer-cell *matFooterCellDef style="text-align: right"> Total: </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="importe">
+          <th mat-header-cell *matHeaderCellDef> Importe (S/.) </th>
+          <td mat-cell *matCellDef="let element"> {{element?.importe| number:'.2-2'}} </td>
+          <td mat-footer-cell *matFooterCellDef>{{getTotalImporte() | number:'.2-2'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let element">
+
+          </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+      </table>
+    </div>
+
+    <br>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" mat-dialog-close="">Cerrar</button>
+  </mat-dialog-actions>
+</form>

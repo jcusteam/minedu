@@ -1,0 +1,21 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "ServiceName": "copasejuReporte",
+      "UpstreamPathTemplate": "/copaseju/reporte/api/v1/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post"
+      ],
+      "DelegatingHandlers": [
+        "ReporteCopasejuHandler"
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "ApiSecurity",
+        "AllowedScopes": []
+      },
+      "SwaggerKey": "copasejuReporte"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "ServiceName": "copasejuRequerimientoExclusion",
+      "UpstreamPathTemplate": "/copaseju/requerimiento-exclusion/api/v1/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post"
+      ],
+      "DelegatingHandlers": [
+        "CopasejuHandler"
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "ApiSecurity",
+        "AllowedScopes": []
+      },
+      "SwaggerKey": "copasejuRequerimientoExclusion"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+<h2 mat-dialog-title>
+  Editar Estado
+</h2>
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" #psEditForm="ngForm" autocomplete="off">
+  <div mat-dialog-content perfectScrollbar>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Número <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="numero" maxlength="1" />
+          <mat-error *ngIf="form.controls.numero.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.numero.errors?.pattern">
+            Ingrese correctamente el número
+          </mat-error>
+          <mat-error *ngIf="form.controls.numero.errors?.max">
+            El número no debe ser mayor a 10
+          </mat-error>
+          <mat-error *ngIf="form.controls.numero.errors?.min">
+            El número no debe ser menor a 1
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Orden <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="orden" maxlength="1" />
+          <mat-error *ngIf="form.controls.orden.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.orden.errors?.pattern">
+            Ingrese correctamente el orden
+          </mat-error>
+          <mat-error *ngIf="form.controls.orden.errors?.max">
+            El orden no debe ser mayor a 10
+          </mat-error>
+          <mat-error *ngIf="form.controls.orden.errors?.min">
+            El orden no debe ser menor a 1
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="nombre" maxlength="50" />
+          <mat-error *ngIf="form.controls.nombre.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.nombre.errors?.pattern">
+            Ingrese correctamente el nombre
+          </mat-error>
+          <mat-error *ngIf="form.controls.nombre.errors?.maxlength">
+            El nombre no debe ser mayor a 50 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button mat-dialog-close>Cerrar</button>
+    <button type="submit" mat-raised-button [disabled]="!form.valid" color="primary">Actualizar</button>
+  </mat-dialog-actions>
+</form>

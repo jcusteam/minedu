@@ -1,0 +1,627 @@
+<h2 mat-dialog-title>Nueva Nota de Crédito Electrónica</h2>
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" autocomplete="off">
+  <mat-dialog-content perfectScrollbar>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+          <div fxFlex>
+            <mat-form-field appearance="fill">
+              <mat-label>Serie</mat-label>
+              <input matInput formControlName="serie" readonly />
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field appearance="fill">
+              <mat-label>Número</mat-label>
+              <input matInput formControlName="correlativo" readonly />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div fxFlex>
+        <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+          <div fxFlex>
+            <mat-form-field appearance="fill">
+              <mat-label>Fecha Emisión <span class="text-required">*</span></mat-label>
+              <input matInput [min]="minDateEmision" [max]="maxDate" [matDatepicker]="picker"
+                formControlName="fechaEmision" readonly />
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="form.controls.fechaEmision.errors?.required">
+                *Requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field appearance="fill">
+              <mat-label>Fecha Vencimiento <span class="text-required">*</span></mat-label>
+              <input matInput [min]="minDate" [matDatepicker]="picker2" formControlName="fechaVencimiento" readonly />
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+              <mat-error *ngIf="form.controls.fechaVencimiento.errors?.required">
+                *Requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+          <div fxFlex>
+            <mat-form-field appearance="fill" class="form">
+              <mat-label>Tipo Documento <span class="text-required">*</span></mat-label>
+              <mat-select formControlName="tipoDocumentoIdentidadId"
+                (selectionChange)="selectedChangeTipoDocIdentidad($event.value)">
+                <mat-option *ngFor="let item of tipoDocIdentidades" [value]="item.tipoDocumentoIdentidadId">
+                  {{item.nombre}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls.tipoDocumentoIdentidadId.errors?.required">*Requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field appearance="fill">
+              <mat-label>Número Documento <span class="text-required">*</span></mat-label>
+              <input matInput formControlName="numeroDocumento" (keyup)="onKeyUpNroDocCliente($event)" maxlength="12">
+              <button mat-button type="button" matSuffix mat-icon-button aria-label="Search" (click)="searchCliente()">
+                <mat-icon>search</mat-icon>
+              </button>
+              <mat-error *ngIf="form.controls.numeroDocumento.errors?.required">*Requerido
+              </mat-error>
+              <mat-error *ngIf="form.controls.numeroDocumento.errors?.pattern">
+                Ingrese correctamente el número de documento
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label> Razón Social/Nombres y Apellidos <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="nombreCliente" readonly>
+          <button mat-icon-button type="button" matSuffix (click)="openDialogNewCliente()" aria-label="Add">
+            <mat-icon style="font-size: 25px;">person_add</mat-icon>
+          </button>
+          <mat-error *ngIf="form.controls.nombreCliente.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px">
+      <div fxFlex>
+        <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px">
+          <div fxFlex>
+            <mat-form-field appearance="fill" class="form">
+              <mat-label>Tipo de Operacion <span class="text-required">*</span></mat-label>
+              <mat-select formControlName="codigoTipoOperacion">
+                <mat-option *ngFor="let item of tipoOperaciones" [value]="item.value">
+                  {{ item.value }} - {{ item.label }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls.codigoTipoOperacion.errors?.required">*Requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field appearance="fill" class="form">
+              <mat-label>Tipo Adquisición <span class="text-required">*</span></mat-label>
+              <mat-select formControlName="tipoAdquisicion"
+                (selectionChange)="selectedChangeTipoAdquision($event.value)">
+                <mat-option *ngFor="let item of tipoAdquisiciones" [value]="item.value">
+                  {{ item.value }} - {{ item.label }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls.tipoAdquisicion.errors?.required">*Requerido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div fxFlex>
+        <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px">
+          <div fxFlex>
+            <mat-form-field appearance="fill">
+              <mat-label>Condición de Pago <span class="text-required">*</span></mat-label>
+              <mat-select formControlName="tipoCondicionPago">
+                <mat-option *ngFor="let item of tipoCondicionPagos" [value]="item.value">
+                  {{item.label}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls.tipoCondicionPago.errors?.required">*Requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field appearance="fill" class="form">
+              <mat-label>Tipo Captación <span class="text-required">*</span></mat-label>
+              <mat-select formControlName="tipoCaptacionId"
+                (selectionChange)="selectedChangeTipoCaptacion($event.value)">
+                <mat-option *ngFor="let item of tipoCaptaciones" [value]="item.tipoCaptacionId">
+                  {{ item.nombre }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls.tipoCaptacionId.errors?.required">*Requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex *ngIf="!hiddenCheque">
+            <mat-form-field appearance="fill">
+              <mat-label>Número Cheque <span class="text-required">*</span></mat-label>
+              <input matInput formControlName="numeroCheque" maxlength="25" />
+              <mat-error *ngIf="form.controls.numeroCheque.errors?.required">
+                *Requerido
+              </mat-error>
+              <mat-error *ngIf="form.controls.correnumeroChequelativo.errors?.pattern">
+                Ingrese correctamente el número de cheque
+              </mat-error>
+              <mat-error *ngIf="form.controls.numeroCheque.errors?.maxlength">
+                El número de cheque no debe ser mayor a 25 caracteres
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px">
+      <div fxFlex>
+        <mat-form-field appearance="fill" *ngIf="!hiddenDeposito">
+          <mat-label>Cuenta Corriente <span class="text-required">*</span></mat-label>
+          <mat-select #select1 formControlName="cuentaCorriente"
+            (selectionChange)="selectedChangeCuentaCorriente($event.value)">
+            <mat-select-filter *ngIf="select1.focused" [displayMember]="'numeroDenominacion'"
+              [noResultsMessage]="'No se encontraron registros'" [placeholder]="'Buscar'" [array]="cuentasCorrientes"
+              (filteredReturn)="filteredCuentasCorrientes =$event">
+            </mat-select-filter>
+            <mat-option *ngFor="let item of filteredCuentasCorrientes" [value]="item">
+              {{item.numeroDenominacion}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.controls.cuentaCorriente.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px">
+          <div fxFlex>
+            <mat-form-field appearance="fill" *ngIf="!hiddenDeposito">
+              <mat-label>Fecha depósito <span class="text-required">*</span></mat-label>
+              <input matInput [matDatepicker]="picker3" [max]="maxDate" formControlName="fechaDeposito" />
+              <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+              <mat-datepicker #picker3></mat-datepicker>
+              <mat-error *ngIf="form.controls.fechaDeposito.errors?.required">
+                *Requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field appearance="fill" *ngIf="!hiddenDeposito">
+              <mat-label>Número de depósito <span class="text-required">*</span></mat-label>
+              <input matInput formControlName="numeroDeposito" (keyup)="onKeyUpNroDeposito($event)" maxlength="12" />
+              <button mat-button type="button" matSuffix mat-icon-button aria-label="Search"
+                (click)="validarDeposito()">
+                <mat-icon>search</mat-icon>
+              </button>
+              <mat-error *ngIf="form.controls.numeroDeposito.errors?.required">
+                *Requerido
+              </mat-error>
+              <mat-error *ngIf="form.controls.numeroDeposito.errors?.pattern">
+                Ingrese correctamente el número de depósito
+              </mat-error>
+              <mat-error *ngIf="form.controls.numeroDeposito.errors?.maxlength">
+                El número de depósito no debe ser mayor a 12 caracteres
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" *ngIf="!hiddenDeposito">
+      <div fxFlex>
+        <mat-checkbox class="checkbox-margin" color="primary" formControlName="cuentaCorrienteValida">Validado
+        </mat-checkbox>
+      </div>
+    </div>
+    <br />
+    <mat-divider></mat-divider>
+    <h3 class="text-subtitle">Encargado</h3>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px">
+      <div fxFlex>
+        <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px">
+          <div fxFlex>
+            <mat-form-field appearance="fill" class="form">
+              <mat-label>Tipo Documento</mat-label>
+              <mat-select formControlName="encargadoTipoDocumento"
+                (selectionChange)="selectedChangeTipoDocEncargado($event.value)">
+                <mat-option *ngFor="let item of tipoDocIdentidadesEncargado" [value]="item.tipoDocumentoIdentidadId">
+                  {{item.nombre}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls.encargadoTipoDocumento.errors?.required">*Requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field appearance="fill">
+              <mat-label>Número de documento</mat-label>
+              <input matInput formControlName="encargadoNumeroDocumento" (keyup)="onKeyUpNroEncargado($event)"
+                maxlength="12" />
+              <button mat-button type="button" matSuffix mat-icon-button aria-label="Search"
+                (click)="searchEncargado()">
+                <mat-icon>search</mat-icon>
+              </button>
+              <mat-error *ngIf="form.controls.encargadoNumeroDocumento.errors?.required">
+                *Requerido
+              </mat-error>
+              <mat-error *ngIf="form.controls.encargadoNumeroDocumento.errors?.pattern">
+                Ingrese correctamente el número de documento
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombres y Apellidos</mat-label>
+          <input matInput formControlName="encargadoNombre" readonly />
+          <button mat-button type="button" matSuffix mat-icon-button aria-label="Search" (click)="clearEncargado()">
+            <mat-icon>clear</mat-icon>
+          </button>
+          <mat-error *ngIf="form.controls.encargadoNombre.errors?.required">
+            *Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.encargadoNombre.errors?.pattern">
+            Ingrese correctamente el nombre y apellidos
+          </mat-error>
+          <mat-error *ngIf="form.controls.encargadoNombre.errors?.maxlength">
+            El nombre y apellidos no debe ser mayor a 100 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div *ngIf="!hiddenDocFuente">
+      <br />
+      <mat-divider></mat-divider>
+      <h3 class="text-subtitle">Documento a Modificar</h3>
+      <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px">
+        <div fxFlex *ngIf="data.tipoDocumentoId == this.tipoDocEnum.NOTA_CREDITO">
+          <mat-form-field appearance="fill" class="form">
+            <mat-label>Fuente Origen <span class="text-required">*</span></mat-label>
+            <mat-select formControlName="fuenteOrigen" (selectionChange)="selectedChangeFuenteOrigen($event.value)">
+              <mat-option *ngFor="let item of fuenteOrigenes" [value]="item.value">
+                {{item.label}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.controls.fuenteOrigen.errors?.required">
+              *Requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex>
+          <mat-form-field appearance="fill" class="form">
+            <mat-label>Tipo <span class="text-required">*</span></mat-label>
+            <mat-select formControlName="fuenteTipoDocumento">
+              <mat-option *ngFor="let item of tipoFuentes" [value]="item.tipoComprobantePagoId">
+                {{item.nombre}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.controls.fuenteTipoDocumento.errors?.required">
+              *Requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="20">
+          <mat-form-field appearance="fill">
+            <mat-label>Serie <span class="text-required">*</span></mat-label>
+            <input matInput formControlName="fuenteSerie" maxlength="10">
+            <mat-error *ngIf="form.controls.fuenteSerie.errors?.required">
+              *Requerido
+            </mat-error>
+            <mat-error *ngIf="form.controls.fuenteSerie.errors?.pattern">
+              Ingrese correctamente la serie
+            </mat-error>
+            <mat-error *ngIf="form.controls.fuenteSerie.errors?.maxlength">
+              La serie no debe ser mayor a 10 caracteres
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="20">
+          <mat-form-field appearance="fill">
+            <mat-label>Número <span class="text-required">*</span></mat-label>
+            <input matInput formControlName="fuenteCorrelativo" maxlength="12">
+            <button mat-button type="button" matSuffix mat-icon-button aria-label="Search" *ngIf="!hiddenValidaFuente"
+              (click)="searchDocFuente()">
+              <mat-icon>search</mat-icon>
+            </button>
+            <mat-error *ngIf="form.controls.fuenteCorrelativo.errors?.required">*Requerido
+            </mat-error>
+            <mat-error *ngIf="form.controls.fuenteCorrelativo.errors?.pattern">
+              Ingrese correctamente el número
+            </mat-error>
+            <mat-error *ngIf="form.controls.fuenteCorrelativo.errors?.maxlength">
+              El número no debe ser mayor a 12 caracteres
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex>
+          <mat-form-field appearance="fill" class="form" *ngIf="data.tipoDocumentoId == this.tipoDocEnum.NOTA_CREDITO">
+            <mat-label>Tipo Nota Crédito <span class="text-required">*</span></mat-label>
+            <mat-select formControlName="codigoTipoNota">
+              <mat-option *ngFor="let item of tipoNotaCreditos" [value]="item.value">
+                {{item.label}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.controls.codigoTipoNota.errors?.required">
+              *Requerido
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="form" *ngIf="data.tipoDocumentoId == this.tipoDocEnum.NOTA_DEBITO">
+            <mat-label>Tipo Nota Débito <span class="text-required">*</span></mat-label>
+            <mat-select formControlName="codigoTipoNota">
+              <mat-option *ngFor="let item of tipoNotaDebitos" [value]="item.value">
+                {{item.label}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.controls.codigoTipoNota.errors?.required">
+              *Requerido
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+      </div>
+      <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px">
+        <div fxFlex>
+          <mat-checkbox formControlName="documentoFuenteValida" class="checkbox-margin" color="primary">Validado
+          </mat-checkbox>
+        </div>
+      </div>
+      <br />
+    </div>
+    <mat-divider></mat-divider>
+    <br />
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px">
+      <div fxFlex>
+        <mat-form-field appearance="fill" *ngIf="!hiddenCatalogo">
+          <mat-label>Catálogo de Bienes</mat-label>
+          <mat-select #select2 formControlName="catalogoBien"
+            (selectionChange)="selectedChangeCatalogoBien($event.value)">
+            <mat-select-filter *ngIf="select2.focused" [displayMember]="'codigoDescripcion'"
+              [noResultsMessage]="'No se encontraron registros'" [placeholder]="'Buscar'" [array]="catalogoBienes"
+              (filteredReturn)="filteredCatalogoBienes =$event">
+            </mat-select-filter>
+            <mat-option *ngFor="let item of filteredCatalogoBienes" [value]="item">
+              {{item.codigoDescripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" *ngIf="!hiddenTarifario">
+          <mat-label>Tarifarios de MINEDU</mat-label>
+          <mat-select #select3 formControlName="tarifario" (selectionChange)="selectedChangeTarifario($event.value)">
+            <mat-select-filter *ngIf="select3.focused" [displayMember]="'codigoNombre'"
+              [noResultsMessage]="'No se encontraron registros'" [placeholder]="'Buscar'" [array]="tarifarios"
+              (filteredReturn)="filteredTarifarios =$event">
+            </mat-select-filter>
+            <mat-option *ngFor="let item of filteredTarifarios" [value]="item">
+              {{item.codigoNombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" *ngIf="!hiddenTarifario">
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Cantidad </mat-label>
+          <input matInput formControlName="cantidad" onlyNumber blockCopyPaste maxlength="10" />
+          <mat-error *ngIf="form.controls.cantidad.errors?.pattern">
+            Ingrese correctamente la cantidad
+          </mat-error>
+          <mat-error *ngIf="form.controls.cantidad.errors?.maxlength">
+            La cantidad no debe ser mayor a 10 caracteres
+          </mat-error>
+          <mat-error *ngIf="form.controls.cantidad.errors?.min">
+            La cantidad debe ser mayor a "0"
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Precio Unitario (S/.) </mat-label>
+          <input matInput formControlName="precioUnitario" onlyNumber decimals="2" blockCopyPaste readonly />
+          <mat-error *ngIf="form.controls.descuentoItem.errors?.pattern">
+            Ingrese correctamente el precio unitario
+          </mat-error>
+          <mat-error *ngIf="form.controls.descuentoItem.errors?.min">
+            El precio unitario debe ser mayor ó igual "0"
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Descuento (S/.) </mat-label>
+          <input matInput formControlName="descuentoItem" onlyNumber decimals="2" blockCopyPaste maxlength="12" />
+          <mat-error *ngIf="form.controls.descuentoItem.errors?.pattern">
+            Ingrese correctamente el descuento
+          </mat-error>
+          <mat-error *ngIf="form.controls.descuentoItem.errors?.min">
+            El descuento debe ser mayor ó igual "0"
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="30">
+        <mat-form-field appearance="fill" class="form">
+          <mat-label>Tipo IGV</mat-label>
+          <mat-select formControlName="codigoTipoIGV">
+            <mat-option *ngFor="let item of tipoIgvs" [value]="item.value">
+              {{ item.value }} - {{ item.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end center">
+      <div fxFlex style="text-align: right;">
+        <button type="button" (click)="addDetalleTarifario()" mat-raised-button *ngIf="!hiddenTarifario">
+          Agregar
+        </button>
+        <button type="button" (click)="openDialogCatalogoBien()" mat-raised-button *ngIf="!hiddenCatalogo">
+          Agregar
+        </button>
+      </div>
+    </div>
+    <br />
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource">
+        <!-- Nro Column -->
+        <ng-container matColumnDef="nro">
+          <th mat-header-cell *matHeaderCellDef>No.</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ i + 1 }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="descripcion">
+          <th mat-header-cell *matHeaderCellDef>
+            Descripción (Bien o Servicio)
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.codigo }} - {{ element.descripcion }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cantidad">
+          <th mat-header-cell *matHeaderCellDef>Cantidad</th>
+          <td mat-cell *matCellDef="let element">{{ element.cantidad }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="precio">
+          <th mat-header-cell *matHeaderCellDef>Precio (S/.)</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.precioUnitario | number: '.2-2' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="descuento">
+          <th mat-header-cell *matHeaderCellDef>Descuento (S/.) </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.descuentoItem | number: '.2-2' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="subTotal">
+          <th mat-header-cell *matHeaderCellDef>Sub Total (S/.)</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.subTotal | number: '.2-2' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="valorVenta">
+          <th mat-header-cell *matHeaderCellDef>Total (S/.)</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.valorVenta | number: '.2-2' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button type="button" (click)="deleteDataSource(element)" aria-label="">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+    <br />
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px">
+          <div fxFlex>
+            <mat-form-field appearance="fill">
+              <mat-label>Observaciones</mat-label>
+              <textarea matInput formControlName="observacion" maxlength="200">
+            </textarea>
+              <mat-error *ngIf="form.controls.observacion.errors?.pattern">
+                Ingrese correctamente la observación
+              </mat-error>
+              <mat-error *ngIf="form.controls.correlativo.errors?.maxlength">
+                La observación no debe ser mayor a 200 caracteres
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div fxFlex="30">
+        <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px">
+          <div fxFlex>
+            <mat-form-field>
+              <mat-label></mat-label>
+              <span class="text-prefix" matPrefix>% Total Descuento: &nbsp;</span>
+              <input matInput formControlName="totalDescuento" readonly />
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px">
+          <div fxFlex>
+            <mat-form-field>
+              <mat-label></mat-label>
+              <span class="text-prefix" matPrefix>Exonerada (S/.): &nbsp;</span>
+              <input matInput formControlName="totalOpExonerada" readonly />
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px">
+          <div fxFlex>
+            <mat-form-field>
+              <mat-label></mat-label>
+              <span class="text-prefix" matPrefix>Inafecta (S/.): &nbsp;</span>
+              <input matInput formControlName="totalOpInafecta" readonly />
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px">
+          <div fxFlex>
+            <mat-form-field>
+              <mat-label></mat-label>
+              <span class="text-prefix" matPrefix>Gravada (S/.): &nbsp;</span>
+              <input matInput formControlName="totalOpGravada" readonly />
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px">
+          <div fxFlex>
+            <mat-form-field>
+              <mat-label></mat-label>
+              <span class="text-prefix" matPrefix>IGV ({{IGVEnum.PORCENTAJE}}%): &nbsp;</span>
+              <input matInput formControlName="igvTotal" readonly />
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px">
+          <div fxFlex>
+            <mat-form-field>
+              <mat-label></mat-label>
+              <span class="text-prefix" matPrefix>Total (S/.): &nbsp;</span>
+              <input matInput formControlName="importeTotal" readonly />
+
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="onCloseDialog()">Cerrar</button>
+    <button type="submit" mat-raised-button [disabled]="!form.valid" color="primary">Generar Comprobante </button>
+  </mat-dialog-actions>
+</form>

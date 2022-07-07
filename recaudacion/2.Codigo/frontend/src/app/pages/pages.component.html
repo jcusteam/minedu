@@ -1,0 +1,81 @@
+<mat-sidenav-container>
+    <mat-sidenav *ngIf="settings.menu == 'vertical'" [opened]="settings.sidenavIsOpened"
+        [mode]="settings.sidenavIsPinned ? 'side' : 'over'" #sidenav class="sidenav mat-elevation-z6">
+        <app-sidenav [unidadEjecutoraNombre]="unidadEjecutoraNombre"></app-sidenav>
+    </mat-sidenav>
+    <mat-sidenav-content id="main" perfectScrollbar [disabled]="settings.fixedHeader" (psScrollY)="onPsScrollY($event)">
+        <mat-toolbar color="primary" class="flex-p-x" style="height: 45px !important;">
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <div *ngIf="settings.menuType == 'default'" class="logo" (click)="closeSubMenus()">SIOGA | </div>
+                    Recaudación
+                </div>
+                <div fxLayout="row" fxLayoutAlign="end center">
+                    <img width="150" src="./assets/img/app/Logo_minedu.png" />
+                </div>
+            </div>
+        </mat-toolbar>
+
+        <mat-toolbar id="horizontal-menu" style="background:#eaeaea !important" class="horizontal-menu flex-p-x transition-2"
+            [class.fixed-top]="!settings.fixedHeader">
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <button *ngIf="settings.menu == 'vertical'" mat-icon-button (click)="toggleSidenav()">
+                        <mat-icon>menu</mat-icon>
+                    </button>
+                    <div style="font-size: 14px;">{{unidadEjecutoraNombre}}</div>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="end center">
+                    <app-list-ue [unidadEjecutoras]="unidadEjecutoras" (unidadEjecutora)="showEjecutora($event)">
+                    </app-list-ue>
+                    <app-user-menu></app-user-menu>
+                </div>
+            </div>
+        </mat-toolbar>
+
+        <div id="main-content" class="inner-sidenav-content transition-2" perfectScrollbar
+            [disabled]="!settings.fixedHeader" (psScrollY)="onPsScrollY($event)">
+            <app-breadcrumb></app-breadcrumb>
+            <div [class.has-footer]="settings.hasFooter">
+                <router-outlet></router-outlet>
+            </div>
+            <div *ngIf="settings.hasFooter" fxLayout="row" fxLayoutAlign="space-between center"
+                class="footer bg-primary">
+                <div></div>
+                <div>
+                    <small>© Derechos reservados 2021 - MINEDU - SIOGA versión 1.0</small>
+                </div>
+            </div>
+        </div>
+
+
+        <div #backToTop fxLayout="row" fxLayoutAlign="center center" class="back-to-top" (click)="scrollToTop()">
+            <mat-icon>arrow_upward</mat-icon>
+        </div>
+    </mat-sidenav-content>
+
+    <mat-sidenav #options position="end" class="options">
+        <div fxLayout="row" fxLayoutAlign="center center" class="control mat-elevation-z1">
+            <h2>Ajustes</h2>
+        </div>
+
+        <div perfectScrollbar>
+            <div fxLayout="column" class="control">
+                <h4>Temas</h4>
+                <div fxLayout="row" fxLayoutAlign="space-around center">
+                    <div class="skin-primary blue-light" (click)="changeTheme('blue-light')">
+                        <div class="skin-secondary"></div>
+                    </div>
+                    <div class="skin-primary teal-light" (click)="changeTheme('teal-light')">
+                        <div class="skin-secondary"></div>
+                    </div>
+                    <div class="skin-primary red-light" (click)="changeTheme('red-light')">
+                        <div class="skin-secondary"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-sidenav>
+</mat-sidenav-container>

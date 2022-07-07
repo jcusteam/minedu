@@ -1,0 +1,16 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "ServiceName": "subvencionReporte",
+      "UpstreamPathTemplate": "/subvencion/reporte/api/v1/{everything}",
+      "UpstreamHttpMethod": [
+        "Post"
+      ],
+      "DelegatingHandlers": [
+        "ReporteHandler"
+      ],
+      "SwaggerKey": "subvencionReporte"
+    }
+  ]
+}

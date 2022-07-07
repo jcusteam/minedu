@@ -1,0 +1,111 @@
+<h2 mat-dialog-title>
+  Estado de Documentos
+</h2>
+
+<div mat-dialog-content perfectScrollbar>
+  <form class="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" #psForm="ngForm" autocomplete="off">
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex="20">
+        <mat-form-field appearance="fill">
+          <mat-label>Número <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="numero" maxlength="1" />
+          <mat-error *ngIf="form.controls.numero.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.numero.errors?.pattern">
+            Ingrese correctamente el número
+          </mat-error>
+          <mat-error *ngIf="form.controls.numero.errors?.max">
+            El número no debe ser mayor a 10
+          </mat-error>
+          <mat-error *ngIf="form.controls.numero.errors?.min">
+            El número no debe ser menor a 1
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="20">
+        <mat-form-field appearance="fill">
+          <mat-label>Orden <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="orden" maxlength="1" />
+          <mat-error *ngIf="form.controls.orden.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.orden.errors?.pattern">
+            Ingrese correctamente el orden
+          </mat-error>
+          <mat-error *ngIf="form.controls.orden.errors?.max">
+            El orden no debe ser mayor a 10
+          </mat-error>
+          <mat-error *ngIf="form.controls.orden.errors?.min">
+            El orden no debe ser menor a 1
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="nombre" maxlength="50" />
+          <mat-error *ngIf="form.controls.nombre.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.nombre.errors?.pattern">
+            Ingrese correctamente el nombre
+          </mat-error>
+          <mat-error *ngIf="form.controls.nombre.errors?.maxlength">
+            El nombre no debe ser mayor a 50 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="end none">
+      <div>
+        <button mat-raised-button [disabled]="!form.valid" color="primary">Agregar</button>
+      </div>
+    </div>
+  </form>
+  <br>
+  <mat-divider></mat-divider>
+  <h3 style="padding-top: 10px; padding-bottom: 10px;">Listado</h3>
+  <div class="table-container">
+    <table mat-table [dataSource]="dataSource">
+      <!-- Nro Column -->
+      <ng-container matColumnDef="numero">
+        <th mat-header-cell *matHeaderCellDef> Número </th>
+        <td mat-cell *matCellDef="let row;"> {{ row?.numero }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="orden">
+        <th mat-header-cell *matHeaderCellDef> Orden </th>
+        <td mat-cell *matCellDef="let row">{{ row?.orden }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let row"> {{ row?.nombre }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="tipoDocumento">
+        <th mat-header-cell *matHeaderCellDef> Tipo Documento </th>
+        <td mat-cell *matCellDef="let row"> {{ data?.nombre }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef style="width: 100px;"> Acciones </th>
+        <td mat-cell *matCellDef="let row" style="width: 100px;">
+          <button mat-icon-button type="button" (click)="openDialogEdit(row)">
+            <mat-icon aria-label="Edit" class="edit">edit</mat-icon>
+          </button>
+          <button mat-icon-button type="button" (click)="deleteRowData(row);" aria-label="">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  <br>
+</div>
+<mat-dialog-actions align="end">
+  <button type="button" mat-button mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>

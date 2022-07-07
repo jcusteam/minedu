@@ -1,0 +1,20 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "ServiceName": "siogaPide",
+      "UpstreamPathTemplate": "/pide/api/v1/{everything}",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "DelegatingHandlers": [
+        "SiogaHandler"
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "ApiSecurity",
+        "AllowedScopes": []
+      },
+      "SwaggerKey": "siogaPide"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+<h2 mat-dialog-title>Nuevo Cliente</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-dialog-content class="mat-typography" perfectScrollbar>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Tipo Documento</mat-label>
+          <mat-select formControlName="tipoDocumentoIdentidadId">
+            <mat-option *ngFor="let item of tipoDocumentos" [value]="item.tipoDocumentoIdentidadId"
+            [disabled]="item.tipoDocumentoIdentidadId != data.tipoDocumentoIdentidad">
+              {{item.nombre}}
+            </mat-option>
+          </mat-select>
+          
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Número Documento</mat-label>
+          <input matInput formControlName="numeroDocumento"  readonly/>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre del Cliente</mat-label>
+          <input matInput formControlName="nombre"   readonly/>
+          
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Correo electrónico</mat-label>
+          <input matInput formControlName="correo" readonly />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Dirección</mat-label>
+          <input matInput formControlName="direccion" readonly />
+     
+        </mat-form-field>
+      </div>
+    </div>
+    <br>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button mat-dialog-close>Cerrar</button>
+  </mat-dialog-actions>
+</form>

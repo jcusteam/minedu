@@ -1,0 +1,116 @@
+<h2 mat-dialog-title>
+  Editar Tarifario
+</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" #psForm="ngForm" autocomplete="off">
+  <div mat-dialog-content perfectScrollbar>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Clasificador Ingresos <span class="text-required">*</span></mat-label>
+          <mat-select formControlName="clasificadorIngresoId">
+            <mat-option *ngFor="let item of clasigficadorIngresos" [value]="item.clasificadorIngresoId">
+              {{ item.codigo }} - {{ item.descripcion }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.controls.clasificadorIngresoId.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Grupo Recaudación <span class="text-required">*</span></mat-label>
+          <mat-select formControlName="grupoRecaudacionId">
+            <mat-option *ngFor="let item of grupoRecaudaciones" [value]="item.grupoRecaudacionId">
+              {{ item.nombre }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.controls.grupoRecaudacionId.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Código <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="codigo" maxlength="10" />
+          <mat-error *ngIf="form.controls.codigo.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.codigo.errors?.pattern">
+            Ingrese correctamente el Código
+          </mat-error>
+          <mat-error *ngIf="form.controls.codigo.errors?.maxlength">
+            El código no debe ser mayor a 10 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre <span class="text-required">*</span></mat-label>
+          <textarea matInput formControlName="nombre" maxlength="300"></textarea>
+          <mat-error *ngIf="form.controls.nombre.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.nombre.errors?.pattern">
+            Ingrese correctamente el nombre
+          </mat-error>
+          <mat-error *ngIf="form.controls.nombre.errors?.maxlength">
+            El nombre no debe ser mayor a 300 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Porcentaje UIT <span class="text-required">*</span></mat-label>
+          <input matInput onlyNumber decimals="3" blockCopyPaste formControlName="porcentajeUit" maxlength="12" />
+          <mat-error *ngIf="form.controls.porcentajeUit.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.porcentajeUit.errors?.pattern">
+            Ingrese correctamente el porcentaje UIT
+          </mat-error>
+          <mat-error *ngIf="form.controls.nombre.errors?.maxlength">
+            El porcentaje UIT no debe ser mayor a 12 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Precio <span class="text-required">*</span></mat-label>
+          <input matInput onlyNumber decimals="2" blockCopyPaste formControlName="precio" maxlength="12" />
+          <mat-error *ngIf="form.controls.precio.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.precio.errors?.pattern">
+            Ingrese correctamente el precio
+          </mat-error>
+          <mat-error *ngIf="form.controls.precio.errors?.maxlength">
+            El precio no debe ser mayor a 12 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Precio Variable <span class="text-required">*</span></mat-label>
+          <mat-select formControlName="precioVariable">
+            <mat-option *ngFor="let item of preciosVariables" [value]="item.value">
+              {{ item.label }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.controls.precioVariable.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button (click)="onCloseDialog()">Cerrar</button>
+    <button type="submit" mat-raised-button  [disabled]="!form.valid" color="primary">Actualizar</button>
+  </mat-dialog-actions>
+</form>

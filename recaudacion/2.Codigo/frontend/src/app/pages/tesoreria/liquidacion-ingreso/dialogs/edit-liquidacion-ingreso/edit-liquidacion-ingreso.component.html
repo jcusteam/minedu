@@ -1,0 +1,113 @@
+<h2 mat-dialog-title>Editar Liquidación de Ingresos</h2>
+<form [formGroup]="form" class="form" (ngSubmit)="onSubmit(form.value)" autocomplete="off">
+  <mat-dialog-content class="mat-typography" perfectScrollbar>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Número</mat-label>
+          <input matInput formControlName="numero" placeholder="" readonly>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha Registro</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="fechaRegistro" readonly>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label> Procedencia <span class="text-required">*</span> </mat-label>
+          <input matInput formControlName="procedencia" maxlength="100" readonly>
+          <mat-error *ngIf="form.controls.procedencia.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Cuenta Corriente <span class="text-required">*</span></mat-label>
+          <mat-select #select1 placeholder="Cuenta Corriente" formControlName="cuentaCorriente">
+            <mat-select-filter *ngIf="select1.focused" [displayMember]="'numeroDenominacion'"
+              [noResultsMessage]="'No se encontraron registros'" [placeholder]="'Buscar'" [array]="cuentasCorrientes"
+              (filteredReturn)="filteredcuentasCorrientes =$event">
+            </mat-select-filter>
+            <mat-option *ngFor="let item of filteredcuentasCorrientes" [value]="item"
+              [disabled]="item.cuentaCorrienteId != data?.cuentaCorriente?.cuentaCorrienteId">
+              {{item.numeroDenominacion}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.controls.cuentaCorriente.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Fuente Financiamiento <span class="text-required">*</span></mat-label>
+          <mat-select formControlName="fuenteFinanciamientoId">
+            <mat-option *ngFor="let item of fuenteFinanciamientos" [value]="item.fuenteFinanciamientoId"
+              [disabled]="item.fuenteFinanciamientoId != data.fuenteFinanciamientoId">
+              {{ item?.codigo }} - {{ item?.rubroCodigo }} - {{ item?.descripcion }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Rubro</mat-label>
+          <input matInput formControlName="rubro" maxlength="100" readonly>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+    <h3 style="padding-top: 10px;">Detalle</h3>
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource">
+        <!-- Nro Column -->
+
+        <ng-container matColumnDef="codigo">
+          <th mat-header-cell *matHeaderCellDef> Código </th>
+          <td mat-cell *matCellDef="let row;let i = index" [attr.rowspan]="getRowSpan('codigo', i)"
+            [style.display]="getRowSpan('codigo', i) ? '' : 'none'">{{row.clasificadorIngreso?.codigo}} </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="descripcion">
+          <th mat-header-cell *matHeaderCellDef> Descripción </th>
+          <td mat-cell *matCellDef="let row;let i = index" [attr.rowspan]="getRowSpan('descripcion', i)"
+            [style.display]="getRowSpan('descripcion', i) ? '' : 'none'">{{row.clasificadorIngreso?.descripcion}} </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tipoCaptacion">
+          <th mat-header-cell *matHeaderCellDef> Tipo de Captación </th>
+          <td mat-cell *matCellDef="let row"> {{row?.tipoCaptacion?.nombre}} </td>
+          <td mat-footer-cell *matFooterCellDef class="text-right"> Total (S/.) </td>
+        </ng-container>
+
+        <ng-container matColumnDef="importeParcial">
+          <th mat-header-cell *matHeaderCellDef> Importe Parcial (S/)</th>
+          <td mat-cell *matCellDef="let row">{{row.importeParcial| number:'.2-2'}} </td>
+          <td mat-footer-cell *matFooterCellDef> {{data.total | number:'.2-2' }} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+      </table>
+    </div>
+
+    <br>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="onCloseDialog()">Cerrar</button>
+    <button mat-raised-button type="submit" [disabled]="!form.valid" color="primary">Actualizar</button>
+  </mat-dialog-actions>
+</form>

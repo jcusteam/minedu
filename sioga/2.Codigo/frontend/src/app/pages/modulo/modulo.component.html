@@ -1,0 +1,81 @@
+<mat-sidenav-container>
+  <mat-sidenav *ngIf="settings.menu == 'vertical'" [opened]="settings.sidenavIsOpened"
+    [mode]="(settings.sidenavIsPinned) ? 'side' : 'over'" #sidenav class="sidenav mat-elevation-z6">
+
+  </mat-sidenav>
+  <mat-sidenav-content id="main" perfectScrollbar [disabled]="settings.fixedHeader">
+    <mat-toolbar color="primary" class="flex-p-x" style="height: 56px !important;">
+      <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <a *ngIf="settings.menuType == 'default'" class="logo" routerLink="/modulo"
+            (click)="closeSubMenus()">SIOGA</a> |
+          Módulos
+        </div>
+        <div fxLayout="row" fxLayoutAlign="end center">
+          <img src="./assets/img/app/logo_minedu_min.png" />
+        </div>
+      </div>
+    </mat-toolbar>
+    <mat-toolbar id="horizontal-menu" color="primary" class="horizontal-menu flex-p-x transition-2">
+      <div fxLayout="row" fxLayoutAlign="end center" class="w-100">
+        <app-user-menu [nombreUsuario]="nombreUsuario"></app-user-menu>
+      </div>
+    </mat-toolbar>
+
+    <div id="main-content" class="inner-sidenav-content transition-2" perfectScrollbar
+      [disabled]="!settings.fixedHeader">
+
+      <div [class.has-footer]="settings.hasFooter">
+        <br>
+        <br>
+        <div class="p-2">
+          <div class="text-center">
+            <h2>Plataforma de los Sistemas de Información de la Oficina General de Administración</h2>
+          </div>
+          <br>
+          <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center center" *ngIf="usuario">
+            <p>Bienvenido (a) {{nombreCompleto}}</p>
+          </div>
+          <br>
+          <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center center" *ngIf="!isLoading">
+            <div fxFlex="20" fxFlex.gt-sm="20" fxFlex.sm="60" fxFlex.gt-xs="30" fxFlex.xs="100" class="flex-p"
+              *ngFor="let modulo of modulos">
+              <a href="{{urlPath}}/{{modulo.url}}" class="link">
+                <mat-card class="draggable mat-elevation-z8">
+                  <img mat-card-image src="./assets/img/app/{{modulo.nombreIcono}}" alt="Photo 1">
+                  <mat-card-content class="text-center">
+                    {{modulo.nombreModulo}}
+                  </mat-card-content>
+                </mat-card>
+              </a>
+            </div>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="center center" class="spinner-container" *ngIf="isLoading">
+            <mat-spinner diameter="50"></mat-spinner>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="settings.hasFooter" fxLayout="row" fxLayoutAlign="space-between center" class="footer bg-primary">
+
+        <div>
+          <small>© Derechos reservados 2021 - MINEDU - SIOGA versión 1.0</small>
+        </div>
+        <div>
+          <small>Compatible con:
+            <img src="assets/img/browser/logo-chrome.png" width="20"> Google Chrome,
+            <img src="assets/img/browser/logo-firefox.png" width="20"> Fireforx,
+            <img src="assets/img/browser/logo-edge.png" width="20"> Microsoft Edge</small>
+
+        </div>
+      </div>
+    </div>
+
+
+  </mat-sidenav-content>
+
+  <mat-sidenav #options position="end" class="options">
+
+  </mat-sidenav>
+
+</mat-sidenav-container>

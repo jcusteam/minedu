@@ -1,0 +1,31 @@
+<div fxLayout="column" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100" class="flex-p">
+    <mat-card>
+      <mat-card-content>
+
+        <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+          <div fxFlex="20">
+            <mat-form-field>
+              <mat-label> Año </mat-label>
+              <mat-select [(ngModel)]="anio" (ngModelChange)="selectedAnio($event)">
+                <mat-option *ngFor="let item of listAnios" [value]="item.value">
+                  {{item.label}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+          <div fxFlex>
+            <div id="highcharts-container-tipo-comprobante">
+              <highcharts-chart [Highcharts]="Highcharts2" [(update)]="updateFlag" [options]="chartOptions2">
+              </highcharts-chart>
+            </div>
+          </div>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

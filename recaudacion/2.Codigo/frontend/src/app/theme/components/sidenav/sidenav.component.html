@@ -1,0 +1,27 @@
+<!--
+<mat-toolbar color="primary" [fxLayoutAlign]="(settings.menuType != 'mini') ? 'space-between center' : 'center center'"
+    class="sidenav-header" style="height: 30px !important;">
+</mat-toolbar>
+-->
+
+<div fxLayout="column" fxLayoutAlign="center center" class="user-block transition-2"
+    [class.show]="settings.sidenavUserBlock">
+    <div [fxLayout]="settings.menuType != 'default' ? 'column' : 'row'" class="user-info-wrapper">
+        <div class="user-info">
+            <span>Bienvenido/a:</span><br>
+            <span class="usuario" >{{ nombreUsuario }}</span><br>
+            <span>Rol: </span><br>
+            <span>{{ nombreRol }}</span><br>
+            <span> Último Acceso</span><br>
+            <span>
+                {{date | date: "dd/MM/yyyy, h:mm a"}}
+            </span>
+        </div>
+    </div>
+</div>
+
+<perfect-scrollbar class="sidenav-menu-outer" [class.user-block-show]="settings.sidenavUserBlock">
+    <div id="vertical-menu">
+        <app-vertical-menu *ngIf="status" [menuItems]="menuItems" [menuParentId]="0"></app-vertical-menu>
+    </div>
+</perfect-scrollbar>

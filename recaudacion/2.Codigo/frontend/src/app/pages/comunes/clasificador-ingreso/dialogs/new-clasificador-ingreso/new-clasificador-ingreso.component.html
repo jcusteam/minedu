@@ -1,0 +1,141 @@
+<h2 mat-dialog-title>
+  Registrar Clasificador de Ingresos
+</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" autocomplete="off"
+  #psForm="ngForm">
+  <div mat-dialog-content perfectScrollbar>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Cuenta contable debe <span class="text-required">*</span></mat-label>
+          <mat-select formControlName="cuentaContableIdDebe">
+            <mat-option *ngFor="let item of cuentasContables" [value]="item.cuentaContableId">
+              {{ item.codigo }} - {{ item.descripcion }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.controls.cuentaContableIdDebe.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Cuenta contable haber <span class="text-required">*</span></mat-label>
+          <mat-select formControlName="cuentaContableIdHaber">
+            <mat-option *ngFor="let item of cuentasContables" [value]="item.cuentaContableId">
+              {{ item.codigo }} - {{ item.descripcion }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.controls.cuentaContableIdHaber.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Código <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="codigo" maxlength="20" />
+          <mat-error *ngIf="form.controls.codigo.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.codigo.errors?.pattern">
+            Ingrese correctamente el código
+          </mat-error>
+          <mat-error *ngIf="form.controls.codigo.errors?.maxlength">El código no debe ser mayor a 20 caracteres.</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Descripción <span class="text-required">*</span></mat-label>
+          <textarea matInput formControlName="descripcion" maxlength="100"></textarea>
+          <mat-error *ngIf="form.controls.descripcion.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.descripcion.errors?.pattern">
+            Ingrese correctamente la descripción
+          </mat-error>
+          <mat-error *ngIf="form.controls.codigo.errors?.maxlength">La descripción no debe ser mayor a 100 caracteres.</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Tipo Transacción <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="tipoTransaccion" maxlength="12" />
+          <mat-error *ngIf="form.controls.tipoTransaccion.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.tipoTransaccion.errors?.pattern">
+            Ingrese correctamente el tipo transacción
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Genérica <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="generica" maxlength="2" />
+          <mat-error *ngIf="form.controls.generica.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.generica.errors?.pattern">
+            Ingrese correctamente la genérica
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Sub Genérica <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="subGenerica" maxlength="2" />
+          <mat-error *ngIf="form.controls.subGenerica.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.subGenerica.errors?.pattern">
+            Ingrese correctamente el sub genérica
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Sub Genérica Detalle <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="subGenericaDetalle" maxlength="2" />
+          <mat-error *ngIf="form.controls.subGenericaDetalle.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.subGenericaDetalle.errors?.pattern">
+            Ingrese correctamente la sub genérica detalle
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Especifica <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="especifica" maxlength="2" />
+          <mat-error *ngIf="form.controls.especifica.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.especifica.errors?.pattern">
+            Ingrese correctamente la específica
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Específica detalle <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="especificaDetalle" maxlength="2" />
+          <mat-error *ngIf="form.controls.especificaDetalle.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.especificaDetalle.errors?.pattern">
+            Ingrese correctamente la específica detalle
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button (click)="onCloseDialog()">Cerrar</button>
+    <button type="submit" mat-raised-button [disabled]="!form.valid" color="primary">Guardar</button>
+  </mat-dialog-actions>
+</form>

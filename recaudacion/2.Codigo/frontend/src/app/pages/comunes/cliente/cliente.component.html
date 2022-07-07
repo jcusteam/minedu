@@ -1,0 +1,173 @@
+<div fxLayout="column" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100" class="flex-p">
+    <mat-card>
+      <mat-card-content>
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Filtros de búsqueda
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <form [formGroup]="form" class="form" (ngSubmit)="onSearch(form.value)" autocomplete="off">
+              <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+                <div fxFlex="30">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Número Documento</mat-label>
+                    <input matInput formControlName="numeroDocumento" maxlength="12">
+                    <mat-error *ngIf="form.controls.numeroDocumento.errors?.pattern">Ingrese correctamente el número Documento</mat-error>
+                    <mat-error *ngIf="form.controls.numeroDocumento.errors?.maxlength">El número documento no debe ser mayor a 12 caracteres.</mat-error>
+                  </mat-form-field>
+                </div>
+                <div fxFlex>
+                  <mat-form-field appearance="fill">
+                    <mat-label>Nombres</mat-label>
+                    <input matInput formControlName="nombre" maxlength="100">
+                  </mat-form-field>
+                </div>
+                <div fxFlex="20">
+                  <mat-form-field appearance="fill">
+                    <mat-label> Estado</mat-label>
+                    <mat-select formControlName="estado">
+                      <mat-option *ngFor="let item of estados" [value]="item.value">
+                        {{item.label}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="center center" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+                <div class="button-row">
+                  <button color="accent" mat-raised-button>
+                    Buscar
+                  </button>
+                  <button type="button" (click)="onClean()" mat-raised-button>
+                    Limpiar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <br>
+        <div fxLayout="row" fxLayoutAlign="end center">
+          <div fxFlex style="text-align: right;">
+            <div class="button-row">
+              <button type="button" *ngIf="onAccion(accionEnum.AGREGAR)" color="primary" (click)="openDialogNew()"
+                mat-raised-button>Nuevo</button>
+            </div>
+          </div>
+        </div>
+        <div style="padding-bottom: 10px;"></div>
+        <mat-divider></mat-divider>
+        <div style="padding-top: 10px;"></div>
+        <div>
+          <mat-progress-bar mode="indeterminate" *ngIf="dataSource.isLoadingResults"></mat-progress-bar>
+
+          <div class="table-container">
+            <table mat-table [dataSource]="dataSource" matSort matSortDisableClear>
+              <!-- Nro Column -->
+              <ng-container matColumnDef="index" sticky>
+                <th mat-header-cell *matHeaderCellDef> Nro</th>
+                <td mat-cell *matCellDef="let row;"> {{ row?.index}}</td>
+              </ng-container>
+
+              <!-- tipoDocumento Column -->
+              <ng-container matColumnDef="tipoDocumento">
+                <th mat-header-cell *matHeaderCellDef>Tipo Documento</th>
+                <td mat-cell *matCellDef="let row">
+                  {{ row?.tipoDocumentoNombre}}
+                </td>
+              </ng-container>
+
+              <!-- numeroDocumento Column -->
+              <ng-container matColumnDef="numeroDocumento">
+                <th mat-header-cell *matHeaderCellDef>Número Documento</th>
+                <td mat-cell *matCellDef="let row">{{ row?.numeroDocumento}}</td>
+              </ng-container>
+
+              <!-- nombre Column -->
+              <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre Cliente</th>
+                <td mat-cell *matCellDef="let row">{{ row?.nombre}}</td>
+              </ng-container>
+
+              <!-- direccion Column -->
+              <ng-container matColumnDef="direccion">
+                <th mat-header-cell *matHeaderCellDef>Dirección</th>
+                <td mat-cell *matCellDef="let row">
+                  {{ row?.direccion}}
+                </td>
+              </ng-container>
+
+              <!-- correo Column -->
+              <ng-container matColumnDef="correo">
+                <th mat-header-cell *matHeaderCellDef>Correo</th>
+                <td mat-cell *matCellDef="let row">
+                  {{ row?.correo}}
+                </td>
+              </ng-container>
+
+              <!-- estado Column -->
+              <ng-container matColumnDef="estado">
+                <th mat-header-cell *matHeaderCellDef> Estado </th>
+                <td mat-cell *matCellDef="let row">
+                  <span *ngIf="row?.estado"> {{eEstado.ACTIVO}} </span>
+                  <span *ngIf="!row?.estado"> {{eEstado.INACTIVO}} </span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="actions" stickyEnd>
+                <th mat-header-cell *matHeaderCellDef [ngClass]="'text-center'">
+                  Acciones
+                </th>
+                <td mat-cell *matCellDef="let row; let i = index" [ngClass]="'text-center'">
+                  <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+
+                    <button mat-menu-item *ngIf="row?.estado" (click)="openDialogInfo(row)">
+                      <mat-icon aria-label="View" class="edit">touch_app</mat-icon>
+                      <span>Ver Información</span>
+                    </button>
+
+                    <button mat-menu-item (click)="openDialogEdit(row)" *ngIf="row?.estado && onAccion(accionEnum.MODIFICAR)">
+                      <mat-icon aria-label="Edit">edit</mat-icon>
+                      <span>Editar</span>
+                    </button>
+
+                    <button mat-menu-item (click)="onActivar(row)" *ngIf="!row?.estado && onAccion(accionEnum.ACTIVAR)">
+                      <mat-icon aria-label="Activar">thumb_up_alt</mat-icon>
+                      <span>Activar</span>
+                    </button>
+
+                    <button mat-menu-item (click)="onInactivar(row)" *ngIf="row?.estado && onAccion(accionEnum.INACTIVAR)">
+                      <mat-icon aria-label="Inactivar">thumb_down_alt</mat-icon>
+                      <span>Inactivar</span>
+                    </button>
+
+                  </mat-menu>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+            <div class="no-results" *ngIf="!dataSource.isLoadingResults"
+              [style.display]="dataSource.totalItems === 0 ? '' : 'none'">
+              No se encontraron registros
+            </div>
+
+            <mat-paginator [length]="dataSource.totalItems" [pageSize]="10" [pageSizeOptions]="[10,20,50]" showFirstLastButtons>
+            </mat-paginator>
+          </div>
+
+
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

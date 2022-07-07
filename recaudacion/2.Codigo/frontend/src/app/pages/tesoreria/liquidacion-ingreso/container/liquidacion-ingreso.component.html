@@ -1,0 +1,169 @@
+<div fxLayout="column" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100" class="flex-p">
+    <mat-card>
+      <mat-card-content>
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Filtros de busqueda
+              </mat-panel-title>
+              <mat-panel-description>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div>
+              <form [formGroup]="form" class="form" (ngSubmit)="onSearch(form.value)" autocomplete="off">
+                <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+                  <div fxFlex>
+                    <mat-form-field appearance="fill">
+                      <mat-label> Número</mat-label>
+                      <input matInput onlyNumber blockCopyPaste formControlName="numero" maxlength="5">
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex>
+                    <mat-form-field appearance="fill" class="form">
+                      <mat-label>Estados</mat-label>
+                      <mat-select formControlName="estado">
+                        <mat-option *ngFor="let item of estados" [value]="item.numero">
+                          {{item.nombre}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                  <div fxFlex style="text-align: center;">
+                    <div class="button-row">
+                      <button color="accent" mat-raised-button>Buscar</button>
+                      <button type="button" (click)="onClean()" mat-raised-button>Limpiar</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <br>
+        <div fxLayout="row" fxLayoutAlign="end center">
+          <div fxFlex style="text-align: right;">
+            <div class="button-row">
+              <button type="button" *ngIf="onAccion(accionEnum.AGREGAR)" color="primary" (click)="openDialogNew()" mat-raised-button
+                type="button">Nuevo</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding-bottom: 10px;"></div>
+        <mat-divider></mat-divider>
+        <div style="padding-top: 10px;"></div>
+        <div>
+          <mat-progress-bar mode="indeterminate" *ngIf="dataSource.loading | async"></mat-progress-bar>
+          <div class="table-container">
+            <table mat-table [dataSource]="dataSource" matSort matSortDisableClear>
+
+              <!-- Id Column -->
+              <ng-container matColumnDef="index" sticky>
+                <th mat-header-cell *matHeaderCellDef>Nro</th>
+                <td mat-cell *matCellDef="let row;"> {{ row?.index}}</td>
+              </ng-container>
+
+              <!-- Numero Column -->
+              <ng-container matColumnDef="numero">
+                <th mat-header-cell *matHeaderCellDef> Número </th>
+                <td mat-cell *matCellDef="let row"> {{ row?.numero}} </td>
+              </ng-container>
+
+              <!-- Estado Column -->
+              <ng-container matColumnDef="estado">
+                <th mat-header-cell *matHeaderCellDef> Estado</th>
+                <td mat-cell *matCellDef="let row">
+                  {{ row?.estadoNombre}}
+                </td>
+              </ng-container>
+
+              <!-- fechaRegistro Column -->
+              <ng-container matColumnDef="fechaRegistro">
+                <th mat-header-cell *matHeaderCellDef> Fecha Registro
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  {{row?.fechaRegistro | date:'dd-MM-yyyy'}} </td>
+              </ng-container>
+
+              <!-- Fuente Financiamiento Column -->
+              <ng-container matColumnDef="fuenteFinanciamiento">
+                <th mat-header-cell *matHeaderCellDef> Fuente Financiamiento </th>
+                <td mat-cell *matCellDef="let row"> {{row?.fuenteFinanciamiento?.descripcion}} </td>
+              </ng-container>
+
+              <!-- Procedencia Column -->
+              <ng-container matColumnDef="procedencia">
+                <th mat-header-cell *matHeaderCellDef> Procedencia </th>
+                <td mat-cell *matCellDef="let row"> {{row?.procedencia}} </td>
+              </ng-container>
+
+              <!-- Total Column -->
+              <ng-container matColumnDef="total">
+                <th mat-header-cell *matHeaderCellDef> Total (S/.)</th>
+                <td mat-cell *matCellDef="let row"> {{row?.total| number:'.2-2'}} </td>
+              </ng-container>
+
+              <!-- Actions Column -->
+              <ng-container matColumnDef="actions" stickyEnd>
+                <th mat-header-cell *matHeaderCellDef class="center">
+                  Acciones
+                </th>
+                <td mat-cell *matCellDef="let row; let i = index" class="center">
+                  <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="openDialogInfo(row)">
+                      <mat-icon aria-label="Show">touch_app</mat-icon>
+                      <span>Ver Información</span>
+                    </button>
+                    
+                    <button mat-menu-item (click)="openDialogEdit(row)"
+                      *ngIf="row.estado == estadoLiquidacionEnum.EMITIDO && onAccion(accionEnum.MODIFICAR)">
+                      <mat-icon aria-label="Edit">edit</mat-icon>
+                      <span>Editar</span>
+                    </button>
+                    
+                    <button mat-menu-item (click)="onProcess(row)"
+                      *ngIf="row.estado == estadoLiquidacionEnum.EMITIDO && onAccion(accionEnum.APROBAR)">
+                      <mat-icon aria-label="Process">hourglass_empty</mat-icon>
+                      <span>Procesar</span>
+                    </button>
+
+                    <button mat-menu-item (click)="onEmitirRI(row)"
+                      *ngIf="row.estado == estadoLiquidacionEnum.PROCESADO && onAccion(accionEnum.REMITIR)">
+                      <mat-icon aria-label="Emitir">add_box</mat-icon>
+                      <span>Emitir R.I</span>
+                    </button>
+
+                    <button mat-menu-item (click)="onDelete(row)"
+                      *ngIf="row.estado == estadoLiquidacionEnum.EMITIDO && onAccion(accionEnum.ELIMINAR)">
+                      <mat-icon aria-label="Edit">delete_outline</mat-icon>
+                      <span>Eliminar</span>
+                    </button>
+
+                  </mat-menu>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+              </tr>
+            </table>
+            <div class="no-results" *ngIf="!(dataSource.loading | async)"
+              [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+              No se encontraron registros
+            </div>
+            <mat-paginator [length]="dataSource.total" [pageSize]="10" [pageSizeOptions]="[5,10,20,50]" showFirstLastButtons>
+            </mat-paginator>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

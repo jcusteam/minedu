@@ -1,0 +1,21 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "ServiceName": "copasejuJuzgado",
+      "UpstreamPathTemplate": "/copaseju/juzgado/api/v1/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post"
+      ],
+      "DelegatingHandlers": [
+        "CopasejuHandler"
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "ApiSecurity",
+        "AllowedScopes": []
+      },
+      "SwaggerKey": "copasejuJuzgado"
+    }
+  ]
+}

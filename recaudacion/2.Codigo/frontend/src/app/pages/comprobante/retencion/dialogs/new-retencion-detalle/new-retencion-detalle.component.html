@@ -1,0 +1,187 @@
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" autocomplete="off">
+  <h2 mat-dialog-title>Comprobante Relacionado (pago)</h2>
+  <mat-dialog-content class="mat-typography">
+
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill" class="form">
+          <mat-label>Tipo Documento <span class="text-required">*</span></mat-label>
+          <mat-select formControlName="tipoDocumento">
+            <mat-option *ngFor="let item of tipoDocs" [value]="item.value">
+              {{item.label}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.controls.tipoDocumento.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+          <div fxFlex>
+            <mat-form-field appearance="fill">
+              <mat-label>Serie <span class="text-required">*</span></mat-label>
+              <input matInput formControlName="serie" maxlength="10">
+              <mat-error *ngIf="form.controls.serie.errors?.required">*Requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field appearance="fill">
+              <mat-label>Número <span class="text-required">*</span></mat-label>
+              <input matInput formControlName="correlativo" maxlength="12">
+              <mat-error *ngIf="form.controls.correlativo.errors?.required">*Requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha Emisión <span class="text-required">*</span></mat-label>
+          <input matInput [matDatepicker]="picker" [max]="maxDate" formControlName="fechaEmision" readonly>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="form.controls.correlativo.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Importe Total Comprobante (S/.) <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="importeTotal" onlyNumber decimals="2" blockCopyPaste
+            (keyup)="applyTotalComprobante($event)" maxlength="12">
+          <mat-error *ngIf="form.controls.importeTotal.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.importeTotal.errors?.pattern">
+            Ingrese correctamente el importe total de comprobante
+          </mat-error>
+          <mat-error *ngIf="form.controls.importeTotal.errors?.maxlength">
+            El importe total no debe ser mayor a 12 caracteres
+          </mat-error>
+
+          <mat-error *ngIf="form.controls.importeTotal.errors?.min">
+            El importe total debe ser mayor ó igual a '0'
+          </mat-error>
+
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+
+      <div fxFlex>
+        <mat-form-field appearance="fill" class="form">
+          <mat-label>Tipo Moneda</mat-label>
+          <mat-select formControlName="tipoModena">
+            <mat-option *ngFor="let item of tipoMonedas" [value]="item.value">
+              {{item.label}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.controls.tipoModena.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Importe de Operación (S/.)</mat-label>
+          <input matInput formControlName="importeOperacion" onlyNumber decimals="2" blockCopyPaste readonly
+            maxlength="12">
+          <mat-error *ngIf="form.controls.importeOperacion.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.importeOperacion.errors?.pattern">
+            Ingrese correctamente el importe de operación
+          </mat-error>
+          <mat-error *ngIf="form.controls.importeOperacion.errors?.maxlength">
+            El importe de operación no debe ser mayor a 12 caracteres
+          </mat-error>
+
+          <mat-error *ngIf="form.controls.importeOperacion.errors?.min">
+            El importe de operación debe ser mayor ó igual a '0'
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <h3 style="padding-top: 10px;">Datos del Pago</h3>
+
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha Pago <span class="text-required">*</span></mat-label>
+          <input matInput [matDatepicker]="picker2" formControlName="fechaPago" [min]="minDate" >
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+          <mat-error *ngIf="form.controls.fechaPago.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+      
+    </div>
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Número Correlativo de Pago <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="numeroCorrelativoPago">
+          <mat-error *ngIf="form.controls.numeroCorrelativoPago.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Importe de pago (sin aplicar retención)</mat-label>
+          <input matInput formControlName="importePago" onlyNumber decimals="2" blockCopyPaste readonly>
+          <mat-error *ngIf="form.controls.importePago.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <h3 style="padding-top: 10px;">Datos de Retención</h3>
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Regimen de retención</mat-label>
+          <input matInput formControlName="regimenRetencionDesc" readonly>
+          <mat-error *ngIf="form.controls.regimenRetencionDesc.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Importe Retenido (S/.)</mat-label>
+          <input matInput formControlName="importeRetenido" onlyNumber decimals="2" blockCopyPaste readonly>
+          <mat-error *ngIf="form.controls.importeRetenido.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha Retención <span class="text-required">*</span></mat-label>
+          <input matInput [matDatepicker]="picker3" [min]="minDate" formControlName="fechaRetencion" readonly>
+          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+          <mat-datepicker #picker3></mat-datepicker>
+          <mat-error *ngIf="form.controls.fechaRetencion.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Importe neto pagado (S/.)</mat-label>
+          <input matInput formControlName="importeNetoPagado" onlyNumber decimals="2" blockCopyPaste readonly>
+          <mat-error *ngIf="form.controls.importeNetoPagado.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button (click)="onNoClick()">Cerrar</button>
+    <button type="submit" mat-raised-button color="primary">Agregar </button>
+  </mat-dialog-actions>
+</form>

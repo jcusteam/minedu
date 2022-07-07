@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>
+  Editar Tipo Recibo Ingreso
+</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)"
+autocomplete="off" #psForm="ngForm">
+  <div mat-dialog-content perfectScrollbar>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="nombre" maxlength="100" />
+          <mat-error *ngIf="form.controls.nombre.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.nombre.errors?.pattern">
+            Ingrese correctamente el nombre
+          </mat-error>
+          <mat-error *ngIf="form.controls.nombre.errors?.maxlength">
+            El nombre no debe ser mayor a 100 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button (click)="onCloseDialog()">Cerrar</button>
+    <button type="submit" mat-raised-button [disabled]="!form.valid" color="primary">Actualizar</button>
+  </mat-dialog-actions>
+</form>

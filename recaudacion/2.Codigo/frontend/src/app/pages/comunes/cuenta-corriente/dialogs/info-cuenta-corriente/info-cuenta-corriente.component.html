@@ -1,0 +1,62 @@
+<h2 mat-dialog-title>
+  Información de Cuentas Corrientes
+</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" #psForm="ngForm">
+  <div mat-dialog-content perfectScrollbar>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Banco</mat-label>
+          <mat-select formControlName="bancoId">
+            <mat-option *ngFor="let item of bancos" [value]="item.bancoId" [disabled]="item.bancoId != data.bancoId">
+              {{ item.nombre }}
+            </mat-option>
+          </mat-select>
+
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Fuente Financiamiento</mat-label>
+          <mat-select formControlName="fuenteFinanciamientoId">
+            <mat-option *ngFor="let item of fuenteFinanciamientos" [value]="item.fuenteFinanciamientoId"
+              [disabled]="item.fuenteFinanciamientoId != data.fuenteFinanciamientoId">
+              {{ item.descripcion }}
+            </mat-option>
+          </mat-select>
+
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex="30">
+        <mat-form-field appearance="fill">
+          <mat-label>Código</mat-label>
+          <input matInput formControlName="codigo" readonly />
+
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Número</mat-label>
+          <input matInput formControlName="numero" readonly />
+
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Denominación</mat-label>
+          <input matInput formControlName="denominacion" readonly />
+
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button mat-dialog-close>Cerrar</button>
+  </mat-dialog-actions>
+</form>

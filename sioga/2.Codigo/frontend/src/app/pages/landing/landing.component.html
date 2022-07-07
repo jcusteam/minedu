@@ -1,0 +1,56 @@
+<div fxLayout="column" class="landing-header bg-primary">
+  <div fxLayout="row" fxLayoutAlign="flex-end" class="p-2">
+    <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="60" class="p-0">
+      <img src="./assets/img/app/Logo_minedu.png" class="w-100"/>
+    </div>
+  </div>
+
+  <p class="logo p-2">SIOGA</p>
+  <div class="p-2">
+    <p class="intro-text p-1">
+      Plataforma de los Sistemas de Información de la Oficina
+    </p>
+    <p class="intro-text">
+      General de Administración
+    </p>
+  </div>
+  <div class="p-2">
+
+    <div fxLayout="row" fxLayoutAlign="center center">
+
+      <a mat-raised-button href="{{urlPassport}}" style="background-color: #b2dfdb;">
+        <mat-icon>lock_open</mat-icon> Iniciar Sesión
+      </a>
+
+      <!--
+      <a mat-raised-button routerLink="/login" style="background-color: #b2dfdb;">
+        <mat-icon>lock_open</mat-icon> Iniciar Sesión
+      </a>
+      -->
+    </div>
+
+  </div>
+
+  <div class="p-2">
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <a style="font-size: 18px; color:#212121;" mat-button routerLink="/register">Registro en línea (Recaudación de
+        Ingresos)</a>
+    </div>
+  </div>
+</div>
+
+<div class="bg-primary w-100">
+  <div class="landing-footer">
+    <div fxLayout.xs="column" fxLayout.gt-xs="row wrap" fxLayoutAlign="center space-between">
+      <span>© Derechos reservados 2021 - MINEDU - SIOGA versión 1.0</span>
+    </div>
+   
+    <div fxLayout.xs="column" fxLayout.gt-xs="row wrap" fxLayoutAlign="center space-between" style="margin-top: 10px;" >
+      <small>Compatible con:
+        <img src="assets/img/browser/logo-chrome.png" width="20"> Google Chrome,
+        <img src="assets/img/browser/logo-firefox.png" width="20"> Fireforx,
+        <img src="assets/img/browser/logo-edge.png" width="20"> Microsoft Edge</small>
+    </div>
+  </div>
+
+</div>

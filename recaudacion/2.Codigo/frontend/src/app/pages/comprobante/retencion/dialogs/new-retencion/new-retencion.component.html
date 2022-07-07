@@ -1,0 +1,182 @@
+<h2 mat-dialog-title>Nuevo Comprobante Retención</h2>
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" autocomplete="off">
+  <mat-dialog-content perfectScrollbar>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex="30">
+        <mat-form-field appearance="fill">
+          <mat-label>Número RUC <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="numeroDocumento" (keyup)="onKeyUpNroDocCliente($event)" maxlength="11">
+          <button mat-button type="button" matSuffix mat-icon-button aria-label="Search" (click)="searchCliente()">
+            <mat-icon>search</mat-icon>
+          </button>
+          <mat-error *ngIf="form.controls.numeroDocumento.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.numeroDocumento.errors?.pattern">
+            Ingrese correctamente el número de RUC
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label> Razón Social <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="nombreCliente" readonly>
+          <button mat-icon-button type="button" matSuffix (click)="openDialogNewCliente()" aria-label="Add">
+            <mat-icon style="font-size: 25px;">person_add</mat-icon>
+          </button>
+          <mat-error *ngIf="form.controls.nombreCliente.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px">
+          <div fxFlex>
+            <mat-form-field appearance="fill">
+              <mat-label>Régimen de Retención <span class="text-required">*</span></mat-label>
+              <mat-select formControlName="regimenRetencion">
+                <mat-option *ngFor="let item of tipoRegimenes" [value]="item.value">
+                  {{item.label}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls.regimenRetencion.errors?.required">*Requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field appearance="fill">
+              <mat-label>Fecha Emisión <span class="text-required">*</span></mat-label>
+              <input matInput [min]="minDateEmision" [max]="maxDate" [matDatepicker]="picker"
+                formControlName="fechaEmision" readonly>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="form.controls.fechaEmision.errors?.required">*Requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div fxFlex>
+        <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px">
+          <div fxFlex>
+            <mat-form-field appearance="fill">
+              <mat-label>Periodo</mat-label>
+              <input matInput formControlName="periodoOps" readonly>
+              <mat-error *ngIf="form.controls.periodoOps.errors?.required">*Requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field appearance="fill">
+              <mat-label>Total Retenido (S/.) </mat-label>
+              <input matInput formControlName="total" readonly>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Observación</mat-label>
+          <input matInput formControlName="observacion" maxlength="200">
+          <mat-error *ngIf="form.controls.observacion.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.observacion.errors?.pattern">
+            Ingrese correctamente la observación
+          </mat-error>
+          <mat-error *ngIf="form.controls.observacion.errors?.maxlength">
+            La observación no debe ser mayor a 200 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+    <h3 class="text-subtitle">Relación de Documentos relacionados</h3>
+    <div style="text-align: right;">
+      <button mat-raised-button type="button" (click)="openDialogDetalle()">Agregar</button>
+    </div>
+    <br>
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource">
+        <!-- Nro Column -->
+        <ng-container matColumnDef="nro">
+          <th mat-header-cell *matHeaderCellDef> Nro. </th>
+          <td mat-cell *matCellDef="let element; let i = index"> {{ i + 1 }} </td>
+        </ng-container>
+
+        <!-- Tipo documento -->
+        <ng-container matColumnDef="tipoDocumento">
+          <th mat-header-cell *matHeaderCellDef> Tipo documento </th>
+          <td mat-cell *matCellDef="let element">
+            {{element?.tipoDocumentoNombre}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="serie">
+          <th mat-header-cell *matHeaderCellDef> Serie </th>
+          <td mat-cell *matCellDef="let element"> {{element?.serie}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="numero">
+          <th mat-header-cell *matHeaderCellDef> Número </th>
+          <td mat-cell *matCellDef="let element"> {{element?.correlativo}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fechaEmision">
+          <th mat-header-cell *matHeaderCellDef> Fecha Emisión </th>
+          <td mat-cell *matCellDef="let element"> {{element?.fechaEmision | date:'dd-MM-yyyy'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="total">
+          <th mat-header-cell *matHeaderCellDef> Total Comprobante (S/.) </th>
+          <td mat-cell *matCellDef="let element"> {{element?.importeTotal | number: '.2-2'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nroPago">
+          <th mat-header-cell *matHeaderCellDef> Nro. de pago </th>
+          <td mat-cell *matCellDef="let element"> {{element?.numeroCorrelativoPago}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="importePago">
+          <th mat-header-cell *matHeaderCellDef> Importe de pago (S/.) </th>
+          <td mat-cell *matCellDef="let element"> {{element?.importePago | number: '.2-2'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tasa">
+          <th mat-header-cell *matHeaderCellDef> Tasa % </th>
+          <td mat-cell *matCellDef="let element"> {{element?.tasa | number: '.2-2'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="retencion">
+          <th mat-header-cell *matHeaderCellDef> Retención (S/.) </th>
+          <td mat-cell *matCellDef="let element"> {{element?.importeRetenido | number: '.2-2'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="importeNetoPagado">
+          <th mat-header-cell *matHeaderCellDef> Importe neto pagado (S/.)</th>
+          <td mat-cell *matCellDef="let element"> {{element?.importeNetoPagado | number: '.2-2'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button type="button" (click)="deleteRowData(element);" aria-label="">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+    <br>
+    <br>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" mat-dialog-close>Cerrar</button>
+    <button type="submit" mat-raised-button [disabled]="!form.valid" color="primary">Generar Comprobante </button>
+  </mat-dialog-actions>
+</form>

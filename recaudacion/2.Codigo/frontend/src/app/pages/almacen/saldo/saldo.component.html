@@ -1,0 +1,120 @@
+<div fxLayout="column" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100" class="flex-p">
+    <mat-card>
+      <mat-card-content>
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Filtros
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <form [formGroup]="form" class="form" (ngSubmit)="onSearch(form.value)" autocomplete="off">
+              <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+                <div fxFlex="30">
+                  <mat-form-field appearance="fill">
+                    <mat-label> Código </mat-label>
+                    <input matInput formControlName="codigo" maxlength="13">
+                    <mat-error *ngIf="form.controls.codigo.errors?.pattern">Ingrese correctamente el código</mat-error>
+                    <mat-error *ngIf="form.controls.codigo.errors?.maxlength">El código no debe ser mayor a 13
+                      caracteres.</mat-error>
+                  </mat-form-field>
+                </div>
+                <div fxFlex>
+                  <mat-form-field appearance="fill">
+                    <mat-label> Nombre de Catálogo Bien </mat-label>
+                    <input matInput formControlName="descripcion" maxlength="200">
+                    <mat-error *ngIf="form.controls.descripcion.errors?.pattern">Ingrese correctamente el nombre
+                    </mat-error>
+                    <mat-error *ngIf="form.controls.descripcion.errors?.maxlength">El nombre no debe ser mayor a 200
+                      caracteres.</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <div class="button-row">
+                  <button color="primary" mat-raised-button>Buscar</button>
+                  <button type="button" color="accent" (click)="exportar()" mat-raised-button>Exportar</button>
+                  <button type="button" (click)="onClean()" mat-raised-button>Limpiar</button>
+                </div>
+              </div>
+            </form>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+
+        <div style="padding-bottom: 10px;"></div>
+        <mat-divider></mat-divider>
+        <div style="padding-top: 10px;"></div>
+        <div>
+          <mat-progress-bar mode="indeterminate" *ngIf="dataSource.isLoadingResults"></mat-progress-bar>
+          <div class="table-container">
+            <table mat-table [dataSource]="dataSource" matSort matSortDisableClear>
+              <!-- Nro Column -->
+              <ng-container matColumnDef="index" sticky>
+                <th mat-header-cell *matHeaderCellDef> Nro. </th>
+                <td mat-cell *matCellDef="let row;"> {{ row?.index}}
+                </td>
+              </ng-container>
+
+              <!-- codigo Column -->
+              <ng-container matColumnDef="codigo">
+                <th mat-header-cell *matHeaderCellDef>Código</th>
+                <td mat-cell *matCellDef="let row">
+                  {{ row?.codigo}}
+                </td>
+              </ng-container>
+
+              <!-- descripcion Column -->
+              <ng-container matColumnDef="descripcion">
+                <th mat-header-cell *matHeaderCellDef>Descripción</th>
+                <td mat-cell *matCellDef="let row">{{ row?.descripcion}}</td>
+              </ng-container>
+
+              <!-- unidadMedida Column -->
+              <ng-container matColumnDef="unidadMedida">
+                <th mat-header-cell *matHeaderCellDef>Unidad Medida</th>
+                <td mat-cell *matCellDef="let row">{{ row?.unidadMedida?.nombre}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="stockMinimo">
+                <th mat-header-cell *matHeaderCellDef> Stock Mínimo </th>
+                <td mat-cell *matCellDef="let row"> {{ row?.stockMinimo }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="puntoReorden">
+                <th mat-header-cell *matHeaderCellDef> Punto Reorden </th>
+                <td mat-cell *matCellDef="let row"> {{ row?.puntoReorden }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="stockMaximo">
+                <th mat-header-cell *matHeaderCellDef> Stock Máximo </th>
+                <td mat-cell *matCellDef="let row"> {{ row?.stockMaximo }} </td>
+              </ng-container>
+
+              <!-- cuentaCorriente Column -->
+              <ng-container matColumnDef="saldo" stickyEnd>
+                <th mat-header-cell *matHeaderCellDef>Saldo</th>
+                <td mat-cell *matCellDef="let row" [ngStyle]="row?.saldo <= row?.puntoReorden && {'color': 'red'}">
+                  <label>{{row?.saldo}}</label>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+            <div class="no-results" *ngIf="!dataSource.isLoadingResults"
+              [style.display]="dataSource.totalItems === 0 ? '' : 'none'">
+              No se encontraron registros
+            </div>
+            <mat-paginator [length]="dataSource.totalItems" [pageSize]="10" [pageSizeOptions]="[5,10,50]"
+              showFirstLastButtons>
+            </mat-paginator>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

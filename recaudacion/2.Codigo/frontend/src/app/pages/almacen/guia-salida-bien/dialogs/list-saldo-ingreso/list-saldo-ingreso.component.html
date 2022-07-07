@@ -1,0 +1,141 @@
+<h2 mat-dialog-title>Saldo de Ingreso Pecosa</h2>
+<form class="form" [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit(form.value)">
+  <mat-dialog-content class="mat-typography" perfectScrollbar>
+
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Catálogo Bien</mat-label>
+          <input matInput formControlName="catalogoBien" readonly>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table mat-table formArrayName="detalles" [dataSource]="dataSource">
+        <!-- Nro Column -->
+        <ng-container matColumnDef="nro">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let row; let i = index"> {{ i + 1 }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="anioPecosa">
+          <th mat-header-cell *matHeaderCellDef> Año Pecosa </th>
+          <td mat-cell *matCellDef="let row; let i = index">{{row?.anioPecosa}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="numeroPecosa">
+          <th mat-header-cell *matHeaderCellDef> Número Pecosa </th>
+          <td mat-cell *matCellDef="let row; let i = index">{{row?.numeroPecosa}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="serieFormato">
+          <th mat-header-cell *matHeaderCellDef> Serie </th>
+          <td mat-cell *matCellDef="let row; let i = index"> {{row?.serieFormato}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="serieDel">
+          <th mat-header-cell *matHeaderCellDef> Del </th>
+          <td mat-cell *matCellDef="let row; let i = index">{{row?.serieDel}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="serieAl">
+          <th mat-header-cell *matHeaderCellDef> Al </th>
+          <td mat-cell *matCellDef="let row; let i = index">{{row?.serieAl}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="saldo">
+          <th mat-header-cell *matHeaderCellDef> Saldo </th>
+          <td mat-cell *matCellDef="let row;let i = index">{{row?.saldo}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="cantidadSalida">
+          <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+          <td mat-cell *matCellDef="let element;let i = index" [formGroupName]="i">
+            <mat-form-field style="width: 100px !important; font-size: 12px;" autocomplete="off">
+              <input matInput formControlName="cantidadSalida" maxlength="10"
+                (keyup)="applyCantidadSalida($event, element)">
+              <mat-error *ngIf="form.get('detalles').controls[i].controls.cantidadSalida.errors?.required">
+                *Requerido
+              </mat-error>
+              <mat-error *ngIf="form.get('detalles').controls[i].controls.cantidadSalida.errors?.pattern">
+                Cantidad inválido
+              </mat-error>
+              <mat-error *ngIf="form.get('detalles').controls[i].controls.cantidadSalida.errors?.min">
+                Cantidad debe ser mayor a "0"
+              </mat-error>
+              <mat-error *ngIf="form.get('detalles').controls[i].controls.cantidadSalida.errors?.maxlength">
+                Cantidad no debe ser mayor a 10 caracteres
+              </mat-error>
+              <mat-error *ngIf="form.get('detalles').controls[i].controls.cantidadSalida.errors?.max">
+                Cantidad debe ser menor ó igual a {{element.saldo}}
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="serieDelSalida">
+          <th mat-header-cell *matHeaderCellDef> Del </th>
+          <td mat-cell *matCellDef="let element;let i = index" [formGroupName]="i">
+            <mat-form-field style="width: 100px !important; font-size: 12px;" autocomplete="off">
+              <input matInput formControlName="serieDelSalida" maxlength="10" (keyup)="applySerieDel($event, element)">
+              <mat-error *ngIf="form.get('detalles').controls[i].controls.serieDelSalida.errors?.required">
+                *Requerido
+              </mat-error>
+              <mat-error *ngIf="form.get('detalles').controls[i].controls.serieDelSalida.errors?.pattern">
+                Serie Del inválido
+              </mat-error>
+              <mat-error *ngIf="form.get('detalles').controls[i].controls.serieDelSalida.errors?.min">
+                Serie Del mayor a "0"
+              </mat-error>
+              <mat-error *ngIf="form.get('detalles').controls[i].controls.serieDelSalida.errors?.maxlength">
+                Serie Del no debe ser mayor a 10 caracteres
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="serieAlSalida">
+          <th mat-header-cell *matHeaderCellDef> Al </th>
+          <td mat-cell *matCellDef="let element;let i = index" [formGroupName]="i">
+            <mat-form-field style="width: 100px !important; font-size: 12px;" autocomplete="off">
+              <input matInput formControlName="serieAlSalida" maxlength="10" (keyup)="applySerieAl($event, element)">
+              <mat-error *ngIf="form.get('detalles').controls[i].controls.serieAlSalida.errors?.required">
+                *Requerido
+              </mat-error>
+              <mat-error *ngIf="form.get('detalles').controls[i].controls.serieAlSalida.errors?.pattern">
+                Serie Al inválido
+              </mat-error>
+              <mat-error *ngIf="form.get('detalles').controls[i].controls.serieAlSalida.errors?.min">
+                Serie Al mayor a "0"
+              </mat-error>
+              <mat-error *ngIf="form.get('detalles').controls[i].controls.serieDelSalida.errors?.maxlength">
+                Serie Al no debe ser mayor a 10 caracteres
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- Header row Entrada -->
+        <ng-container matColumnDef="header-row-entrada">
+          <th mat-header-cell *matHeaderCellDef [attr.colspan]="7"> </th>
+        </ng-container>
+
+        <!-- Header row salida -->
+        <ng-container matColumnDef="header-row-salida">
+          <th mat-header-cell *matHeaderCellDef [attr.colspan]="3" class="header-row-salida text-center"> Salida </th>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['header-row-entrada','header-row-salida']"></tr>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <br>
+    </div>
+    <br>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cerrar</button>
+    <button mat-raised-button color="primary">Agregar</button>
+  </mat-dialog-actions>
+</form>

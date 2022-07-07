@@ -1,0 +1,1277 @@
+{
+  "SwaggerEndPoints": [
+    {
+      "Key": "esinad",
+      "Config": [
+        {
+          "Name": "ESINAD API",
+          "Version": "v1",
+          "Service": {
+            "Name": "esinad",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "siogaAuthorization",
+      "Config": [
+        {
+          "Name": "SIOGA - Authorization API",
+          "Version": "v1",
+          "Service": {
+            "Name": "siogaAuthorization",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "siogaPide",
+      "Config": [
+        {
+          "Name": "SIOGA - Pide API",
+          "Version": "v1",
+          "Service": {
+            "Name": "siogaPide",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "comunesBancos",
+      "Config": [
+        {
+          "Name": "Comunes - Bancos API",
+          "Version": "v1",
+          "Service": {
+            "Name": "comunesBancos",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "comunesCatalogoBienes",
+      "Config": [
+        {
+          "Name": "Comunes - Catalogo Bienes API",
+          "Version": "v1",
+          "Service": {
+            "Name": "comunesCatalogoBienes",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "comunesClasificadorIngresos",
+      "Config": [
+        {
+          "Name": "Comunes - Clasificador Ingresos API",
+          "Version": "v1",
+          "Service": {
+            "Name": "comunesClasificadorIngresos",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "comunesClientes",
+      "Config": [
+        {
+          "Name": "Comunes - Cliente API",
+          "Version": "v1",
+          "Service": {
+            "Name": "comunesClientes",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "comunesCuentaContables",
+      "Config": [
+        {
+          "Name": "Comunes - Cuenta Contables API",
+          "Version": "v1",
+          "Service": {
+            "Name": "comunesCuentaContables",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "comunesCuentaCorrientes",
+      "Config": [
+        {
+          "Name": "Comunes - Cuentas Corrientes API",
+          "Version": "v1",
+          "Service": {
+            "Name": "comunesCuentaCorrientes",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "comunesFuenteFinanciamientos",
+      "Config": [
+        {
+          "Name": "Comunes - Fuente Financiamiento API",
+          "Version": "v1",
+          "Service": {
+            "Name": "comunesFuenteFinanciamientos",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "comunesGrupoRecaudaciones",
+      "Config": [
+        {
+          "Name": "Comunes - Grupo Recaudaciones API",
+          "Version": "v1",
+          "Service": {
+            "Name": "comunesGrupoRecaudaciones",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "comunesTarifarios",
+      "Config": [
+        {
+          "Name": "Comunes - Tarifarios API",
+          "Version": "v1",
+          "Service": {
+            "Name": "comunesTarifarios",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "comunesTipoCaptaciones",
+      "Config": [
+        {
+          "Name": "Comunes - Tipo Captaciones API",
+          "Version": "v1",
+          "Service": {
+            "Name": "comunesTipoCaptaciones",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "comunesTipoComprobantePagos",
+      "Config": [
+        {
+          "Name": "Comunes - Tipo Comprobante Pagos API",
+          "Version": "v1",
+          "Service": {
+            "Name": "comunesTipoComprobantePagos",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "comunesTipoDocumentoIdentidades",
+      "Config": [
+        {
+          "Name": "Comunes - Tipo Documento Identidades API",
+          "Version": "v1",
+          "Service": {
+            "Name": "comunesTipoDocumentoIdentidades",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "comunesTipoReciboIngresos",
+      "Config": [
+        {
+          "Name": "Comunes - Tipo Recibo Ingresos API",
+          "Version": "v1",
+          "Service": {
+            "Name": "comunesTipoReciboIngresos",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "comunesUits",
+      "Config": [
+        {
+          "Name": "Comunes - UIT API",
+          "Version": "v1",
+          "Service": {
+            "Name": "comunesUits",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "comunesUnidadEjecutoras",
+      "Config": [
+        {
+          "Name": "Comunes - Unidades Ejecutoras API",
+          "Version": "v1",
+          "Service": {
+            "Name": "comunesUnidadEjecutoras",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "comunesUnidadMedidas",
+      "Config": [
+        {
+          "Name": "Comunes - Unidad Medidas API",
+          "Version": "v1",
+          "Service": {
+            "Name": "comunesUnidadMedidas",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+
+
+    {
+      "Key": "recaudacionComprobanteEmisor",
+      "Config": [
+        {
+          "Name": "Recaudación - Comprobante Emisor API",
+          "Version": "v1",
+          "Service": {
+            "Name": "recaudacionComprobanteEmisor",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "recaudacionComprobantePago",
+      "Config": [
+        {
+          "Name": "Recaudación - Comprobante de Pago API",
+          "Version": "v1",
+          "Service": {
+            "Name": "recaudacionComprobantePago",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "recaudacionComprobanteRetencion",
+      "Config": [
+        {
+          "Name": "Recaudación - Comprobante de Retención API",
+          "Version": "v1",
+          "Service": {
+            "Name": "recaudacionComprobanteRetencion",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "recaudacionDepositoBanco",
+      "Config": [
+        {
+          "Name": "Recaudación - Deposito de Bancos API",
+          "Version": "v1",
+          "Service": {
+            "Name": "recaudacionDepositoBanco",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "recaudacionEstado",
+      "Config": [
+        {
+          "Name": "Recaudación - Estado de Documentos API",
+          "Version": "v1",
+          "Service": {
+            "Name": "recaudacionEstado",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "recaudacionFileServer",
+      "Config": [
+        {
+          "Name": "Recaudación - File Server API",
+          "Version": "v1",
+          "Service": {
+            "Name": "recaudacionFileServer",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "recaudacionGuiaSalidaBien",
+      "Config": [
+        {
+          "Name": "Recaudación - Guia Salida Bien API",
+          "Version": "v1",
+          "Service": {
+            "Name": "recaudacionGuiaSalidaBien",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "recaudacionIngresoPecosa",
+      "Config": [
+        {
+          "Name": "Recaudación - Ingreso Pecosa API",
+          "Version": "v1",
+          "Service": {
+            "Name": "recaudacionIngresoPecosa",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "recaudacionKardex",
+      "Config": [
+        {
+          "Name": "Recaudación - Kardex Alamacén API",
+          "Version": "v1",
+          "Service": {
+            "Name": "recaudacionKardex",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "recaudacionLiquidacion",
+      "Config": [
+        {
+          "Name": "Recaudación - Liquidación API",
+          "Version": "v1",
+          "Service": {
+            "Name": "recaudacionLiquidacion",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "recaudacionPapeletaDeposito",
+      "Config": [
+        {
+          "Name": "Recaudación - Papeleta de Depósito API",
+          "Version": "v1",
+          "Service": {
+            "Name": "recaudacionPapeletaDeposito",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "recaudacionParametro",
+      "Config": [
+        {
+          "Name": "Recaudación - Parámetros API",
+          "Version": "v1",
+          "Service": {
+            "Name": "recaudacionParametro",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "recaudacionPedidoPecosa",
+      "Config": [
+        {
+          "Name": "Recaudación - Pedido Pecosa API",
+          "Version": "v1",
+          "Service": {
+            "Name": "recaudacionPedidoPecosa",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "recaudacionReciboIngreso",
+      "Config": [
+        {
+          "Name": "Recaudación - Recibo Ingreso API",
+          "Version": "v1",
+          "Service": {
+            "Name": "recaudacionReciboIngreso",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "recaudacionRegistroLinea",
+      "Config": [
+        {
+          "Name": "Recaudación - Registro Linea API",
+          "Version": "v1",
+          "Service": {
+            "Name": "recaudacionRegistroLinea",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "recaudacionReporte",
+      "Config": [
+        {
+          "Name": "Recaudación - Reporte API",
+          "Version": "v1",
+          "Service": {
+            "Name": "recaudacionReporte",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "recaudacionTipoDocumento",
+      "Config": [
+        {
+          "Name": "Recaudación - Tipo de Documentos API",
+          "Version": "v1",
+          "Service": {
+            "Name": "recaudacionTipoDocumento",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+
+    {
+      "Key": "subvencionActividad",
+      "Config": [
+        {
+          "Name": "Subvención - Actividad API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionActividad",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+
+    {
+      "Key": "subvencionActivo",
+      "Config": [
+        {
+          "Name": "Subvención - Activos API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionActivo",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionApertura",
+      "Config": [
+        {
+          "Name": "Subvención - Aperturas API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionApertura",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+
+    {
+      "Key": "subvencionAreaUsuaria",
+      "Config": [
+        {
+          "Name": "Subvención - Area Usuaria API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionAreaUsuaria",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionBeneficiario",
+      "Config": [
+        {
+          "Name": "Subvención - Beneficiario API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionBeneficiario",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionCategoriaActivo",
+      "Config": [
+        {
+          "Name": "Subvención - Categoria Activo API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionCategoriaActivo",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionCierre",
+      "Config": [
+        {
+          "Name": "Subvención - Cierre API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionCierre",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionDesembolso",
+      "Config": [
+        {
+          "Name": "Subvención - Desembolso API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionDesembolso",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionEvento",
+      "Config": [
+        {
+          "Name": "Subvención - Evento API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionEvento",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionFase",
+      "Config": [
+        {
+          "Name": "Subvención - Fase API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionFase",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionFileserver",
+      "Config": [
+        {
+          "Name": "Subvención - File Server API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionFileserver",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+
+    {
+      "Key": "subvencionFiscalizacion",
+      "Config": [
+        {
+          "Name": "Subvención - Fiscalizacion API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionFiscalizacion",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionFormatoEjecucion",
+      "Config": [
+        {
+          "Name": "Subvención - Formato Ejecucion API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionFormatoEjecucion",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionGasto",
+      "Config": [
+        {
+          "Name": "Subvención - Gasto API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionGasto",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionGrupoActivo",
+      "Config": [
+        {
+          "Name": "Subvención - Grupo Activo API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionGrupoActivo",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+
+    {
+      "Key": "subvencionInstitucion",
+      "Config": [
+        {
+          "Name": "Subvención - Institucion API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionInstitucion",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionNormaLegal",
+      "Config": [
+        {
+          "Name": "Subvención - NormaLegal API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionNormaLegal",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionParametro",
+      "Config": [
+        {
+          "Name": "Subvención - Parametro API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionParametro",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionPoaFinal",
+      "Config": [
+        {
+          "Name": "Subvención - Poa Final API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionPoaFinal",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+
+    {
+      "Key": "subvencionProgramaFinal",
+      "Config": [
+        {
+          "Name": "Subvención - Programa Final API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionProgramaFinal",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionProveedor",
+      "Config": [
+        {
+          "Name": "Subvención - Proveedor API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionProveedor",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+
+    {
+      "Key": "subvencionProyectoFormato",
+      "Config": [
+        {
+          "Name": "Subvención - Proyecto Formato API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionProyectoFormato",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionProyectoPoa",
+      "Config": [
+        {
+          "Name": "Subvención - Proyecto Poa API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionProyectoPoa",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+
+    {
+      "Key": "subvencionProyectoPrograma",
+      "Config": [
+        {
+          "Name": "Subvención - Proyecto Programa API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionProyectoPrograma",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionReporte",
+      "Config": [
+        {
+          "Name": "Subvención - Reporte API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionReporte",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionResponsableActivo",
+      "Config": [
+        {
+          "Name": "Subvención - Responsable Activo API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionResponsableActivo",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionSiaf",
+      "Config": [
+        {
+          "Name": "Subvención - SIAF API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionSiaf",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionSubgenerica",
+      "Config": [
+        {
+          "Name": "Subvención - Subgenerica API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionSubgenerica",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionSubtarea",
+      "Config": [
+        {
+          "Name": "Subvención - Subtarea API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionSubtarea",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionTarea",
+      "Config": [
+        {
+          "Name": "Subvención - Tarea API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionTarea",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionTipoBeneficiario",
+      "Config": [
+        {
+          "Name": "Subvención - Tipo Beneficiario API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionTipoBeneficiario",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionTipoDocumento",
+      "Config": [
+        {
+          "Name": "Subvención - Tipo Documento API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionTipoDocumento",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionTipoSubvencion",
+      "Config": [
+        {
+          "Name": "Subvención - Tipo Subvencion API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionTipoSubvencion",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionTrimestre",
+      "Config": [
+        {
+          "Name": "Subvención - Trimestre API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionTrimestre",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionUsuarioInstitucion",
+      "Config": [
+        {
+          "Name": "Subvención - Usuario Institucion API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionUsuarioInstitucion",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "subvencionVincularProyecto",
+      "Config": [
+        {
+          "Name": "Subvención - Vincular Proyecto API",
+          "Version": "v1",
+          "Service": {
+            "Name": "subvencionVincularProyecto",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+
+
+    {
+      "Key": "copasejuAuthorization",
+      "Config": [
+        {
+          "Name": "Copaseju - Authorization API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuAuthorization",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "copasejuCargoComprobante",
+      "Config": [
+        {
+          "Name": "Copaseju - Cargo Comprobante API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuCargoComprobante",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "copasejuCartaOrden",
+      "Config": [
+        {
+          "Name": "Copaseju - Carta Orden API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuCartaOrden",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "copasejuCertDepositoJudicial",
+      "Config": [
+        {
+          "Name": "Copaseju - Certificado Depósito Judicial API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuCertDepositoJudicial",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "copasejuChequeInstitucion",
+      "Config": [
+        {
+          "Name": "Copaseju - Cheque Institucion API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuChequeInstitucion",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "copasejuComprobante",
+      "Config": [
+        {
+          "Name": "Copaseju - Comprobante API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuComprobante",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "copasejuExpedienteJudicial",
+      "Config": [
+        {
+          "Name": "Copaseju - Expediente Judicial API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuExpedienteJudicial",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "copasejuExpedienteJudicialArchivo",
+      "Config": [
+        {
+          "Name": "Copaseju - Expediente Judicial Archivo API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuExpedienteJudicialArchivo",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "copasejuFuentePago",
+      "Config": [
+        {
+          "Name": "Copaseju - Fuente Pago API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuFuentePago",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "copasejuJuzgado",
+      "Config": [
+        {
+          "Name": "Copaseju - Juzgado API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuJuzgado",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "copasejuMotivoJucio",
+      "Config": [
+        {
+          "Name": "Copaseju - Motivo Jucio API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuMotivoJucio",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "copasejuPagaduria",
+      "Config": [
+        {
+          "Name": "Copaseju - Pagaduria API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuPagaduria",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "copasejuPagoBanco",
+      "Config": [
+        {
+          "Name": "Copaseju - Pago Banco API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuPagoBanco",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "copasejuParametro",
+      "Config": [
+        {
+          "Name": "Copaseju - Parámetro API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuParametro",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "copasejuPide",
+      "Config": [
+        {
+          "Name": "Copaseju - PIDE MINEDU API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuPide",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "copasejuProcuraduria",
+      "Config": [
+        {
+          "Name": "Copaseju - Procuraduria API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuProcuraduria",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "copasejuReciboIngresoAnulacion",
+      "Config": [
+        {
+          "Name": "Copaseju - Recibo Ingreso Anulacion API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuReciboIngresoAnulacion",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "copasejuReporte",
+      "Config": [
+        {
+          "Name": "Copaseju - Reporte API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuReporte",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "copasejuRequerimientoExclusion",
+      "Config": [
+        {
+          "Name": "Copaseju - Requerimiento Exclusion API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuRequerimientoExclusion",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "copasejuRequerimientoModificacion",
+      "Config": [
+        {
+          "Name": "Copaseju - Requerimiento Modificacion API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuRequerimientoModificacion",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "copasejuRequerimientoReprogramacion",
+      "Config": [
+        {
+          "Name": "Copaseju - Requerimiento Reprogramacion API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuRequerimientoReprogramacion",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "copasejuSiaf",
+      "Config": [
+        {
+          "Name": "Copaseju - SIAF API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuSiaf",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "copasejuTipoDocumentoGenerador",
+      "Config": [
+        {
+          "Name": "Copaseju - Tipo Documento Generador API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuTipoDocumentoGenerador",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "copasejuTipoDocumentoPago",
+      "Config": [
+        {
+          "Name": "Copaseju - Tipo Documento Pago API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuTipoDocumentoPago",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "copasejuTipoModificacion",
+      "Config": [
+        {
+          "Name": "Copaseju - Tipo Modificación API",
+          "Version": "v1",
+          "Service": {
+            "Name": "copasejuTipoModificacion",
+            "Path": "/swagger/v1/swagger.json"
+          }
+        }
+      ]
+    }
+  ]
+}

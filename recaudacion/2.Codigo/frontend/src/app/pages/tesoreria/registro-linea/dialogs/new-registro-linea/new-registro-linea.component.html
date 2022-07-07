@@ -1,0 +1,313 @@
+<h2 mat-dialog-title>Nuevo Registro en Línea</h2>
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" autocomplete="off">
+  <mat-dialog-content class="mat-typography" perfectScrollbar>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill" class="form">
+          <mat-label>Tipo de Documento <span class="text-required">*</span></mat-label>
+          <mat-select formControlName="tipoDocumentoIdentidadId"
+            (selectionChange)="selectionTipoDocIdentidad($event.value)">
+            <mat-option *ngFor="let item of tipoDocumentoClientes" [value]="item.tipoDocumentoIdentidadId">
+              {{item.nombre}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.controls.tipoDocumentoIdentidadId.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Número Documento <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="numeroDocumento" maxlength="12" (keyup)="onKeyUpNroDoc($event)">
+          <button mat-button type="button" matSuffix mat-icon-button aria-label="Search" (click)="searchNroDoc()">
+            <mat-icon>search</mat-icon>
+          </button>
+          <mat-error *ngIf="form.controls.numeroDocumento.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.numeroDocumento.errors?.pattern">
+            Ingrese correctamente el número de documento
+          </mat-error>
+          <mat-error *ngIf="form.controls.numeroDocumento.errors?.maxlength">
+            El número de documento no debe ser mayor a 12 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label> Nombre del Cliente <span class="text-required">*</span> </mat-label>
+          <input matInput formControlName="clienteNombre" maxlength="200" placeholder="" readonly>
+          <mat-error *ngIf="form.controls.clienteNombre.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.clienteNombre.errors?.pattern">
+            Ingrese correctamente el nombre de cliente
+          </mat-error>
+          <mat-error *ngIf="form.controls.clienteNombre.errors?.maxlength">
+            El nombe de cliente no debe ser mayor a 200 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label> Correo electrónico <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="correo" maxlength="100" placeholder="">
+          <mat-error *ngIf="form.controls.correo.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.correo.errors?.email">
+            Ingrese correctamente el correo electrónico
+          </mat-error>
+          <mat-error *ngIf="form.controls.correo.errors?.maxlength">
+            El correo electrónico no debe ser mayor a 100 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill" class="form">
+          <mat-label>Tipo de Recibo de Ingreso <span class="text-required">*</span></mat-label>
+          <mat-select formControlName="tipoReciboIngresoId" (selectionChange)="selectedChangeTipoRecibo($event.value)">
+            <mat-option *ngFor="let item of tipoReciboIngresos" [value]="item.tipoReciboIngresoId">
+              {{item.nombre}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.controls.tipoReciboIngresoId.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex *ngIf="hiddenExpedienteESinad">
+        <mat-form-field appearance="fill">
+          <mat-label>Expediente de SINAD <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="expedienteESinad" maxlength="30">
+          <mat-error *ngIf="form.controls.expedienteESinad.errors?.required">
+            *Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.expedienteESinad.errors?.pattern">
+            Ingrese correctamente el expediente de SINAD
+          </mat-error>
+          <mat-error *ngIf="form.controls.expedienteESinad.errors?.maxlength">
+            El expediente de SINAD no debe ser mayor a 30 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Cuenta Corriente <span class="text-required">*</span></mat-label>
+          <mat-select #select1 placeholder="Cuenta Corriente" formControlName="cuentaCorriente"
+            (selectionChange)="seletedChangeCuentaCorriente($event.value)">
+            <mat-select-filter *ngIf="select1.focused" [displayMember]="'numeroDenominacion'"
+              [noResultsMessage]="'No se encontraron registros'" [placeholder]="'Buscar'" [array]="cuentasCorrientes"
+              (filteredReturn)="filteredcuentasCorrientes =$event">
+            </mat-select-filter>
+            <mat-option *ngFor="let item of filteredcuentasCorrientes" [value]="item">
+              {{item.numeroDenominacion}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.controls.cuentaCorriente.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+          <div fxFlex>
+            <mat-form-field appearance="fill">
+              <mat-label>Número Depósito <span class="text-required">*</span></mat-label>
+              <input matInput formControlName="numeroDeposito" maxlength="12" placeholder="">
+              <mat-error *ngIf="form.controls.numeroDeposito.errors?.required">*Requerido
+              </mat-error>
+              <mat-error *ngIf="form.controls.numeroDeposito.errors?.pattern">
+                Ingrese correctamente el número depósito
+              </mat-error>
+              <mat-error *ngIf="form.controls.numeroDeposito.errors?.maxlength">
+                El número depósito no debe ser mayor a 12 caracteres
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field appearance="fill">
+              <mat-label>Importe Depósito (S/.) <span class="text-required">*</span> </mat-label>
+              <input matInput formControlName="importeDeposito" onlyNumber decimals="2" blockCopyPaste>
+              <mat-error *ngIf="form.controls.importeDeposito.errors?.required">*Requerido
+              </mat-error>
+              <mat-error *ngIf="form.controls.importeDeposito.errors?.pattern">
+                Ingrese correctamente el importe depósito
+              </mat-error>
+              <mat-error *ngIf="form.controls.importeDeposito.errors?.maxlength">
+                El importe depósito no debe ser mayor a 12 caracteres
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div fxFlex>
+        <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+          <div fxFlex>
+            <mat-form-field appearance="fill">
+              <mat-label>Fecha Depósito <span class="text-required">*</span></mat-label>
+              <input matInput [matDatepicker]="picker2" formControlName="fechaDeposito" readonly>
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+              <mat-error *ngIf="form.controls.fechaDeposito.errors?.required">*Requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <!--
+          <div fxFlex>
+            <button type="button" mat-raised-button (click)="validarDeposito()">Validar</button>
+          </div>
+          -->
+        </div>
+      </div>
+    </div>
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px">
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Número Oficio</mat-label>
+          <input matInput formControlName="numeroOficio" placeholder="" maxlength="25">
+          <mat-error *ngIf="form.controls.numeroOficio.errors?.pattern">
+            Ingrese correctamente el número Oficio
+          </mat-error>
+          <mat-error *ngIf="form.controls.numeroOficio.errors?.maxlength">
+            El número Oficio no debe ser mayor a 25 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Número Comp. pago</mat-label>
+          <input matInput formControlName="numeroComprobantePago" maxlength="25" placeholder="">
+          <mat-error *ngIf="form.controls.numeroComprobantePago.errors?.pattern">
+            Ingrese correctamente el número Comp. pago
+          </mat-error>
+          <mat-error *ngIf="form.controls.numeroComprobantePago.errors?.maxlength">
+            El número Comp. pago no debe ser mayor a 25 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px">
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Expediente SIAF</mat-label>
+          <input matInput formControlName="expedienteSiaf" maxlength="25" placeholder="">
+          <mat-error *ngIf="form.controls.expedienteSiaf.errors?.pattern">
+            Ingrese correctamente el número SIAF
+          </mat-error>
+          <mat-error *ngIf="form.controls.expedienteSiaf.errors?.maxlength">
+            El número SIAF no debe ser mayor a 25 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Resolución</mat-label>
+          <input matInput formControlName="numeroResolucion" maxlength="25" placeholder="">
+          <mat-error *ngIf="form.controls.numeroResolucion.errors?.pattern">
+            Ingrese correctamente la número de resolución
+          </mat-error>
+          <mat-error *ngIf="form.controls.numeroResolucion.errors?.maxlength">
+            El número de resolución no debe ser mayor a 25 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+    <h3 style="padding-top: 10px;">Detalle</h3>
+    <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Clasificador de Ingreso</mat-label>
+
+          <mat-select #select2 placeholder="Clasificador de Ingreso" formControlName="clasificadorIngreso"
+            (selectionChange)="seletedClasificadorIngresoOption($event.value)">
+            <mat-select-filter *ngIf="select2.focused" [displayMember]="'descripcion'"
+              [noResultsMessage]="'No se encontraron registros'" [placeholder]="'Buscar'" [array]="clasificadorIngresos"
+              (filteredReturn)="filteredClasificadorIngresos =$event">
+            </mat-select-filter>
+            <mat-option *ngFor="let item of filteredClasificadorIngresos" [value]="item">
+              {{item.descripcion}}
+            </mat-option>
+          </mat-select>
+
+        </mat-form-field>
+      </div>
+      <div fxFlex="20">
+        <mat-form-field appearance="fill">
+          <mat-label>Importe (S/.)</mat-label>
+          <input matInput formControlName="importe" onlyNumber decimals="2" maxlength="12" blockCopyPaste>
+          <mat-error *ngIf="form.controls.importe.errors?.pattern">
+            Ingrese correctamente el importe
+          </mat-error>
+          <mat-error *ngIf="form.controls.importe.errors?.maxlength">
+            El importe no debe ser mayor a 12 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end center">
+      <div fxFlex style="text-align: right;">
+        <div class="button-row">
+          <button mat-raised-button type="button" (click)="addRowData()">Agregar</button>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource">
+        <!-- Nro Column -->
+        <ng-container matColumnDef="index">
+          <th mat-header-cell *matHeaderCellDef> Nro. </th>
+          <td mat-cell *matCellDef="let element; let i = index"> {{ i + 1 }} </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="clasificadorIngreso">
+          <th mat-header-cell *matHeaderCellDef> Clasificador de Ingreso </th>
+          <td mat-cell *matCellDef="let element">
+            {{element?.clasificadorIngreso?.descripcion}}
+          </td>
+          <td mat-footer-cell *matFooterCellDef style="text-align: right"> Total: </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="importe">
+          <th mat-header-cell *matHeaderCellDef> Importe (S/.) </th>
+          <td mat-cell *matCellDef="let element"> {{element?.importe| number:'.2-2'}} </td>
+          <td mat-footer-cell *matFooterCellDef>{{getTotalImporte() | number:'.2-2'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button type="button" (click)="deleteRowData(element);" aria-label="">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+          <td mat-footer-cell *matFooterCellDef> </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+      </table>
+    </div>
+
+    <br>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="onCloseDialog()">Cerrar</button>
+    <button mat-raised-button type="submit" color="primary">Guardar</button>
+  </mat-dialog-actions>
+</form>

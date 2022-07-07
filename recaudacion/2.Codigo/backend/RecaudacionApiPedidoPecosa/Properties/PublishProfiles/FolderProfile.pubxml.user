@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\Website\recaudacion.api.pedidopecosa</_PublishTargetUrl>
+    <History>True|2022-04-26T17:17:36.1947081Z;True|2022-04-08T05:57:53.6343123-05:00;True|2022-04-05T07:05:04.0058183-05:00;True|2022-03-16T17:43:12.1371692-05:00;False|2022-03-16T17:41:55.4837730-05:00;True|2022-02-28T06:13:15.8425064-05:00;True|2022-02-28T06:13:07.6468351-05:00;True|2022-02-28T05:35:59.2963603-05:00;</History>
+  </PropertyGroup>
+</Project>

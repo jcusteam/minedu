@@ -1,0 +1,85 @@
+<h2 mat-dialog-title>
+  Registrar Cuentas Corrientes
+</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" #psForm="ngForm">
+  <div mat-dialog-content perfectScrollbar>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Banco <span class="text-required">*</span></mat-label>
+          <mat-select formControlName="bancoId">
+            <mat-option *ngFor="let item of bancos" [value]="item.bancoId"  >
+              {{ item.nombre }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.controls.bancoId.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Fuente Financiamiento <span class="text-required">*</span></mat-label>
+          <mat-select formControlName="fuenteFinanciamientoId">
+            <mat-option *ngFor="let item of fuenteFinanciamientos" [value]="item.fuenteFinanciamientoId">
+              {{ item.descripcion }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.controls.fuenteFinanciamientoId.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex="30">
+        <mat-form-field appearance="fill">
+          <mat-label>Código <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="codigo" maxlength="12" />
+          <mat-error *ngIf="form.controls.codigo.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.codigo.errors?.pattern">
+            Ingrese correctamente el código
+          </mat-error>
+          <mat-error *ngIf="form.controls.codigo.errors?.maxlength">
+            El código no debe ser mayor a 12 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Número <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="numero" maxlength="30" />
+          <mat-error *ngIf="form.controls.numero.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.numero.errors?.pattern">
+            Ingrese correctamente el número
+          </mat-error>
+          <mat-error *ngIf="form.controls.numero.errors?.maxlength">
+            El número no debe ser mayor a 15 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+    
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Denominación <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="denominacion" maxlength="150" />
+          <mat-error *ngIf="form.controls.denominacion.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.denominacion.errors?.pattern">
+            Ingrese correctamente la denominacion
+          </mat-error>
+          <mat-error *ngIf="form.controls.denominacion.errors?.maxlength">
+            La denominacion no debe ser mayor a 150 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button (click)="onCloseDialog()">Cerrar</button>
+    <button type="submit" mat-raised-button [disabled]="!form.valid" color="primary">Guardar</button>
+  </mat-dialog-actions>
+</form>

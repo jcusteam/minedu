@@ -1,0 +1,74 @@
+<h2 mat-dialog-title>Nuevo Cliente</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" autocomplete="off">
+  <mat-dialog-content class="mat-typography" perfectScrollbar>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Tipo Documento <span class="text-required">*</span></mat-label>
+          <mat-select formControlName="tipoDocumentoIdentidadId"
+            (selectionChange)="onSelectionTipoDocIdentidad($event.value)">
+            <mat-option *ngFor="let item of tipoDocumentos" [value]="item.tipoDocumentoIdentidadId">
+              {{item.nombre}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.controls.tipoDocumentoIdentidadId.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Número Documento <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="numeroDocumento" (keyup)="onKeyUpNroDoc($event)" maxlength="12" />
+          <button mat-button type="button" matSuffix mat-icon-button aria-label="Search" (click)="searchNroDoc()">
+            <mat-icon>search</mat-icon>
+          </button>
+          <mat-error *ngIf="form.controls.numeroDocumento.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.numeroDocumento.errors?.pattern">
+            Ingrese correctamente el número de documento
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre del Cliente</mat-label>
+          <input matInput formControlName="nombre" maxlength="200" readonly />
+          <mat-error *ngIf="form.controls.nombre.errors?.required">*Requerido
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Correo electrónico</mat-label>
+          <input matInput formControlName="correo" maxlength="100" />
+          <mat-error *ngIf="form.controls.correo.errors?.email">
+            Ingrese un correo válido
+          </mat-error>
+          <mat-error *ngIf="form.controls.correo.errors?.maxlength">El correo electrónico no debe ser mayor a 100 caracteres.
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Dirección <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="direccion" maxlength="300" />
+          <mat-error *ngIf="form.controls.direccion.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.direccion.errors?.maxlength">La dirección no debe ser mayor a 300 caracteres.
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <br>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="onCloseDialog()">Cerrar</button>
+    <button type="submit" mat-raised-button [disabled]="!form.valid" color="primary">Guardar</button>
+  </mat-dialog-actions>
+</form>

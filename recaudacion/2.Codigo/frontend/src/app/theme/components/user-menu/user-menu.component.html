@@ -1,0 +1,17 @@
+<button mat-icon-button [matMenuTriggerFor]="userMenu" #userMenuTrigger="matMenuTrigger">
+    <mat-icon>account_circle</mat-icon>
+</button>
+
+<mat-menu #userMenu="matMenu" [overlapTrigger]="false" class="toolbar-dropdown-menu user-menu">
+    <!--<span (mouseleave)="userMenuTrigger.closeMenu()">-->
+    <a mat-menu-item href="{{urlModulo}}" (click)="onModulo()">
+        <mat-icon>ballot</mat-icon>
+        <span>Modulos</span>
+    </a>
+    <div class="divider"></div>
+    <a mat-menu-item href="{{urlSistema}}" (click)="onClose()">
+        <mat-icon>power_settings_new</mat-icon>
+        <span>Salir</span>
+    </a>
+    <!--</span>-->
+</mat-menu>

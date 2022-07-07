@@ -1,0 +1,84 @@
+<h2 mat-dialog-title>
+  Información Tarifario
+</h2>
+<form [formGroup]="tarifarioForm" (ngSubmit)="onSubmit()" #psForm="ngForm">
+  <div mat-dialog-content perfectScrollbar>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Clasificador Ingresos</mat-label>
+          <mat-select formControlName="clasificadorIngresoId">
+            <mat-option *ngFor="let item of clasigficadorIngresos" [value]="item.clasificadorIngresoId"
+              [disabled]="item.clasificadorIngresoId != data.clasificadorIngresoId">
+              {{ item.codigo }} - {{ item.descripcion }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Grupo Recaudación</mat-label>
+          <mat-select formControlName="grupoRecaudacionId">
+            <mat-option *ngFor="let item of grupoRecaudaciones" [value]="item.grupoRecaudacionId"
+              [disabled]="item.grupoRecaudacionId != data.grupoRecaudacionId">
+              {{ item.nombre }}
+            </mat-option>
+          </mat-select>
+
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Código</mat-label>
+          <input matInput formControlName="codigo" readonly />
+
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <textarea matInput formControlName="nombre" readonly></textarea>
+
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Porcentaje UIT</mat-label>
+          <input matInput formControlName="porcentajeUit" readonly />
+
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Precio</mat-label>
+          <input matInput formControlName="precio" readonly />
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Precio Variable</mat-label>
+          <mat-select formControlName="precioVariable">
+            <mat-option *ngFor="let item of preciosVariables" [value]="item.value"
+              [disabled]="item.value != data.precioVariable">
+              {{ item.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button mat-dialog-close>Cerrar</button>
+  </mat-dialog-actions>
+</form>

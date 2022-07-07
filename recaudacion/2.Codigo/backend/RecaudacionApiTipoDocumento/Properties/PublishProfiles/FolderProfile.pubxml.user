@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\Repository\si00371-sioga-recaudacion\2.Codigo\Backend\RecaudacionApiTipoDocumento\bin\Release\netcoreapp3.1\publish\</_PublishTargetUrl>
+    <History>True|2022-04-26T17:19:09.5965591Z;True|2022-04-08T06:00:11.3883008-05:00;True|2022-04-08T05:51:01.0067819-05:00;True|2022-04-08T05:30:13.7147730-05:00;True|2022-04-05T07:07:24.9109389-05:00;True|2022-03-23T02:31:03.2676339-05:00;True|2022-03-17T17:30:51.7297496-05:00;True|2022-03-15T17:18:06.5430382-05:00;</History>
+  </PropertyGroup>
+</Project>

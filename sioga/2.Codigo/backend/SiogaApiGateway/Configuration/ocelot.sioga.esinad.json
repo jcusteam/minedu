@@ -1,0 +1,17 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "ServiceName": "esinad",
+      "UpstreamPathTemplate": "/esinad/api/v1/{everything}",
+      "UpstreamHttpMethod": [
+        "Get"
+      ],
+      "DelegatingHandlers": [
+        "SiogaHandler"
+      ],
+
+      "SwaggerKey": "esinad"
+    }
+  ]
+}

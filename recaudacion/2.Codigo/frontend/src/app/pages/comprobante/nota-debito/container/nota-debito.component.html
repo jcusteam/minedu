@@ -1,0 +1,265 @@
+<div fxLayout="column" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100" class="flex-p">
+    <mat-card>
+      <mat-card-content>
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Filtros
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <form [formGroup]="form" class="form" (ngSubmit)="onSearch(form.value)" autocomplete="off">
+              <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+                <div fxFlex>
+                  <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+                    <div fxFlex>
+                      <mat-form-field appearance="fill" class="form">
+                        <mat-label>Tipo Documento Identidad</mat-label>
+                        <mat-select formControlName="tipoDocumentoIdentidadId"
+                          (selectionChange)="selectedChandgeTipoDocIdentidad($event.value)">
+                          <mat-option *ngFor="let item of tipoDocumentoClientes"
+                            [value]="item.tipoDocumentoIdentidadId">
+                            {{item.nombre}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div fxFlex>
+                      <mat-form-field appearance="fill">
+                        <mat-label>Número Documento</mat-label>
+                        <input matInput formControlName="numeroDocumento" maxlength="12">
+                        <button mat-button type="button" matSuffix mat-icon-button aria-label="Search"
+                          (click)="searchNroDoc()">
+                          <mat-icon>search</mat-icon>
+                        </button>
+                        <mat-error *ngIf="form.controls.numeroDocumento.errors?.pattern">
+                          Ingrese correctamente el número de documento
+                        </mat-error>
+                        <mat-error *ngIf="form.controls.numeroDocumento.errors?.maxlength">
+                          El número documento no debe ser mayor a 12 caracteres
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                </div>
+                <div fxFlex>
+                  <mat-form-field appearance="fill">
+                    <mat-label> Nombre Cliente</mat-label>
+                    <input matInput formControlName="clienteNombre" maxlength="100" readonly>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+                <div fxFlex>
+                  <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+                    <div fxFlex>
+                      <mat-form-field appearance="fill">
+                        <mat-label>Serie</mat-label>
+                        <input matInput formControlName="serie" maxlength="6">
+                        <mat-error *ngIf="form.controls.serie.errors?.pattern">
+                          Ingrese correctamente la serie
+                        </mat-error>
+                        <mat-error *ngIf="form.controls.serie.errors?.maxlength">
+                          La serie no debe ser mayor a 6 caracteres
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div fxFlex>
+                      <mat-form-field appearance="fill">
+                        <mat-label> Número</mat-label>
+                        <input matInput formControlName="correlativo" maxlength="12">
+                        <mat-error *ngIf="form.controls.correlativo.errors?.pattern">
+                          Ingrese correctamente el número
+                        </mat-error>
+                        <mat-error *ngIf="form.controls.correlativo.errors?.maxlength">
+                          El número no debe ser mayor a 12 caracteres
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div fxFlex>
+                  <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+                    <div fxFlex>
+                      <mat-form-field appearance="fill">
+                        <mat-label>Fecha Inicio</mat-label>
+                        <input matInput [matDatepicker]="picker" [max]="maxDate" formControlName="fechaInicio" readonly>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <div fxFlex>
+                      <mat-form-field appearance="fill">
+                        <mat-label>Fecha Final</mat-label>
+                        <input matInput [matDatepicker]="picker2" [max]="maxDate" formControlName="fechaFin" readonly>
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+                <div fxFlex>
+                  <mat-form-field appearance="fill" class="form">
+                    <mat-label>Tipo Captación</mat-label>
+                    <mat-select formControlName="tipoCaptacionId">
+                      <mat-option *ngFor="let item of tipoCaptaciones" [value]="item.tipoCaptacionId">
+                        {{item.nombre}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div fxFlex>
+                  <mat-form-field appearance="fill" class="form">
+                    <mat-label>Tipo Adquisición</mat-label>
+                    <mat-select formControlName="tipoAdquisicion">
+                      <mat-option *ngFor="let item of tipoAdquisiciones" [value]="item.value">
+                        {{item.label}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="center center" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+                <div class="button-row">
+                  <button color="accent" mat-raised-button>Buscar</button>
+                  <button type="button" (click)="onClean()" mat-raised-button>Limpiar</button>
+                </div>
+              </div>
+            </form>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <br>
+        <div fxLayout="row" fxLayoutAlign="end center">
+          <div fxFlex style="text-align: right;">
+            <div class="button-row">
+              <button type="button" color="primary" *ngIf="onAccion(accionEnum.AGREGAR)" (click)="openDialogNew()" mat-raised-button>Nuevo</button>
+            </div>
+          </div>
+        </div>
+        <div style="padding-bottom: 10px;"></div>
+        <mat-divider></mat-divider>
+        <div style="padding-top: 10px;"></div>
+
+        <div>
+          <mat-progress-bar mode="indeterminate" *ngIf="dataSource.isLoadingResults"></mat-progress-bar>
+
+          <div class="table-container">
+            <table mat-table [dataSource]="dataSource" matSort matSortDisableClear>
+
+              <!-- ID Column -->
+              <ng-container matColumnDef="index" sticky>
+                <th mat-header-cell *matHeaderCellDef> Nro</th>
+                <td mat-cell *matCellDef="let row;"> {{ row.index}}
+                </td>
+              </ng-container>
+
+              <!-- Fecha Column -->
+              <ng-container matColumnDef="fechaEmision">
+                <th mat-header-cell *matHeaderCellDef> Fecha </th>
+                <td mat-cell *matCellDef="let row"> {{row.fechaEmision | date:'dd-MM-yyyy'}} </td>
+              </ng-container>
+
+              <!-- Serie Column -->
+              <ng-container matColumnDef="serie">
+                <th mat-header-cell *matHeaderCellDef> Serie </th>
+                <td mat-cell *matCellDef="let row"> {{row.serie}} </td>
+              </ng-container>
+
+              <!-- Numero Column -->
+              <ng-container matColumnDef="correlativo">
+                <th mat-header-cell *matHeaderCellDef> Número </th>
+                <td mat-cell *matCellDef="let row"> {{row.correlativo}} </td>
+              </ng-container>
+
+              <!-- Estado Column -->
+              <ng-container matColumnDef="estado">
+                <th mat-header-cell *matHeaderCellDef> Estado</th>
+                <td mat-cell *matCellDef="let row">
+                  {{row?.nombreEstado}}
+                </td>
+              </ng-container>
+
+              <!-- Tipo Documento Column -->
+              <ng-container matColumnDef="tipoDocumento">
+                <th mat-header-cell *matHeaderCellDef> Tipo Documento </th>
+                <td mat-cell *matCellDef="let row"> {{row.cliente?.tipoDocumentoNombre}} </td>
+              </ng-container>
+
+              <!-- Numero Documento Column -->
+              <ng-container matColumnDef="nroDocumento">
+                <th mat-header-cell *matHeaderCellDef> Número Documento </th>
+                <td mat-cell *matCellDef="let row"> {{row.cliente?.numeroDocumento}} </td>
+              </ng-container>
+
+              <!-- Cliente Column -->
+              <ng-container matColumnDef="nombreCliente">
+                <th mat-header-cell *matHeaderCellDef> Nombre y Apellidos</th>
+                <td mat-cell *matCellDef="let row"> {{row.cliente?.nombre}} </td>
+              </ng-container>
+
+              <!-- Total Column -->
+              <ng-container matColumnDef="total">
+                <th mat-header-cell *matHeaderCellDef> Total (S/.)</th>
+                <td mat-cell *matCellDef="let row"> {{ row.importeTotal | number: '.2-2'}} </td>
+              </ng-container>
+
+              <!-- PDF Column -->
+              <ng-container matColumnDef="pdf">
+                <th mat-header-cell *matHeaderCellDef> PDF</th>
+                <td mat-cell *matCellDef="let row">
+                  <button mat-icon-button type="button" (click)="onPdf(row)">
+                    <mat-icon aria-label="Pdf" class="pdf">picture_as_pdf</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+              <!-- Actions Column -->
+              <ng-container matColumnDef="actions" stickyEnd>
+                <th mat-header-cell *matHeaderCellDef class="center">
+                  Acciones
+                </th>
+                <td mat-cell *matCellDef="let row; let i = index" class="center">
+                  <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="openDialogInfo(row)">
+                      <mat-icon aria-label="Edit" class="edit">touch_app</mat-icon>
+                      <span>Ver Información</span>
+                    </button>
+
+                   <!--
+                    <button mat-menu-item (click)="onAnular(row)">
+                      <mat-icon aria-label="">thumb_down_alt</mat-icon>
+                      <span>Anular o comunicar baja</span>
+                    </button>
+                    -->
+
+                  </mat-menu>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+              </tr>
+            </table>
+            <div class="no-results" *ngIf="!dataSource.isLoadingResults"
+              [style.display]="dataSource.totalItems === 0 ? '' : 'none'">
+              No se encontraron registros
+            </div>
+            <mat-paginator [length]="dataSource.totalItems" [pageSize]="10" [pageSizeOptions]="[5,10,20,50]" showFirstLastButtons>
+            </mat-paginator>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

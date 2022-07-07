@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>
+  Parámetro de documentos
+</h2>
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit(form.value)" 
+#psEditForm="ngForm" autocomplete="off">
+  <div mat-dialog-content perfectScrollbar>
+    <div fxLayout="row" fxLayout.xs="column wrap" fxLayoutGap="10px" fxFlexFill>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Serie <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="serie" maxlength="6" />
+          <mat-error *ngIf="form.controls.serie.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.serie.errors?.pattern">
+            Ingrese correctamente la serie
+          </mat-error>
+          <mat-error *ngIf="form.controls.serie.errors?.maxlength">
+            La serie no debe ser mayor a 4 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <mat-form-field appearance="fill">
+          <mat-label>Correlativo <span class="text-required">*</span></mat-label>
+          <input matInput formControlName="correlativo" maxlength="10" />
+          <mat-error *ngIf="form.controls.correlativo.errors?.required">*Requerido
+          </mat-error>
+          <mat-error *ngIf="form.controls.correlativo.errors?.pattern">
+            Ingrese correctamente el correlativo
+          </mat-error>
+          <mat-error *ngIf="form.controls.correlativo.errors?.maxlength">
+            El correlativo no debe ser mayor a 12 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+      
+    </div>
+  </div>
+  <mat-dialog-actions align="end">
+    <button type="button" mat-button (click)="onCloseDialog()">Cerrar</button>
+    <button type="submit" mat-raised-button *ngIf="created"  [disabled]="!form.valid" color="primary">Guardar</button>
+    <button type="submit" mat-raised-button *ngIf="!created"  [disabled]="!form.valid" color="primary">Actualizar</button>
+  </mat-dialog-actions>
+</form>
